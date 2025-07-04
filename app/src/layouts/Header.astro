@@ -1,0 +1,12 @@
+---
+import logo from "../assets/logo.svg"
+import AuthNav from "../components/AuthNav";
+---
+
+<header class="main">
+  <a class="logo" href="/">
+    <img src={logo.src} alt="logo" />
+  </a>
+  
+  <AuthNav client:load />
+</header>

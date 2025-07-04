@@ -1,0 +1,15 @@
+.gitignore
+.npmignore
+api.ts
+base.ts
+common.ts
+configuration.ts
+docs/AuthRequest.md
+docs/AuthResourceApi.md
+docs/AuthResponse.md
+docs/AuthStatus.md
+docs/MemberResourceApi.md
+docs/ProductDto.md
+docs/ProductResourceApi.md
+git_push.sh
+index.ts

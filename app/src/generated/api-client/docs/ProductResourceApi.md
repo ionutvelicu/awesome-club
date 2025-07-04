@@ -1,0 +1,287 @@
+# ProductResourceApi
+
+All URIs are relative to _http://localhost:8080/api_
+
+| Method                                                          | HTTP request                                               | Description |
+| --------------------------------------------------------------- | ---------------------------------------------------------- | ----------- |
+| [**createProduct**](#createproduct)                             | **POST** /products                                         |             |
+| [**deleteProduct**](#deleteproduct)                             | **DELETE** /products/{id}                                  |             |
+| [**getProduct**](#getproduct)                                   | **GET** /products/{id}                                     |             |
+| [**getProductsForAuthor**](#getproductsforauthor)               | **GET** /products                                          |             |
+| [**updateProduct**](#updateproduct)                             | **POST** /products/{id}                                    |             |
+| [**uploadProductSectionContent**](#uploadproductsectioncontent) | **POST** /products/{productId}/section/{sectionId}/content |             |
+
+# **createProduct**
+
+> ProductDto createProduct()
+
+### Example
+
+```typescript
+import { ProductResourceApi, Configuration } from "./api";
+
+const configuration = new Configuration();
+const apiInstance = new ProductResourceApi(configuration);
+
+const { status, data } = await apiInstance.createProduct();
+```
+
+### Parameters
+
+This endpoint does not have any parameters.
+
+### Return type
+
+**ProductDto**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: _/_
+
+### HTTP response details
+
+| Status code | Description           | Response headers |
+| ----------- | --------------------- | ---------------- |
+| **200**     | OK                    | -                |
+| **400**     | Bad Request           | -                |
+| **500**     | Internal Server Error | -                |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **deleteProduct**
+
+> deleteProduct()
+
+### Example
+
+```typescript
+import { ProductResourceApi, Configuration } from "./api";
+
+const configuration = new Configuration();
+const apiInstance = new ProductResourceApi(configuration);
+
+let id: string; // (default to undefined)
+
+const { status, data } = await apiInstance.deleteProduct(id);
+```
+
+### Parameters
+
+| Name   | Type         | Description | Notes                 |
+| ------ | ------------ | ----------- | --------------------- |
+| **id** | [**string**] |             | defaults to undefined |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: _/_
+
+### HTTP response details
+
+| Status code | Description           | Response headers |
+| ----------- | --------------------- | ---------------- |
+| **200**     | OK                    | -                |
+| **400**     | Bad Request           | -                |
+| **500**     | Internal Server Error | -                |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getProduct**
+
+> ProductDto getProduct()
+
+### Example
+
+```typescript
+import { ProductResourceApi, Configuration } from "./api";
+
+const configuration = new Configuration();
+const apiInstance = new ProductResourceApi(configuration);
+
+let id: string; // (default to undefined)
+
+const { status, data } = await apiInstance.getProduct(id);
+```
+
+### Parameters
+
+| Name   | Type         | Description | Notes                 |
+| ------ | ------------ | ----------- | --------------------- |
+| **id** | [**string**] |             | defaults to undefined |
+
+### Return type
+
+**ProductDto**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: _/_
+
+### HTTP response details
+
+| Status code | Description           | Response headers |
+| ----------- | --------------------- | ---------------- |
+| **200**     | OK                    | -                |
+| **400**     | Bad Request           | -                |
+| **500**     | Internal Server Error | -                |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getProductsForAuthor**
+
+> Array<ProductDto> getProductsForAuthor()
+
+### Example
+
+```typescript
+import { ProductResourceApi, Configuration } from "./api";
+
+const configuration = new Configuration();
+const apiInstance = new ProductResourceApi(configuration);
+
+const { status, data } = await apiInstance.getProductsForAuthor();
+```
+
+### Parameters
+
+This endpoint does not have any parameters.
+
+### Return type
+
+**Array<ProductDto>**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: _/_
+
+### HTTP response details
+
+| Status code | Description           | Response headers |
+| ----------- | --------------------- | ---------------- |
+| **200**     | OK                    | -                |
+| **400**     | Bad Request           | -                |
+| **500**     | Internal Server Error | -                |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updateProduct**
+
+> updateProduct(productDto)
+
+### Example
+
+```typescript
+import { ProductResourceApi, Configuration, ProductDto } from "./api";
+
+const configuration = new Configuration();
+const apiInstance = new ProductResourceApi(configuration);
+
+let id: string; // (default to undefined)
+let productDto: ProductDto; //
+
+const { status, data } = await apiInstance.updateProduct(id, productDto);
+```
+
+### Parameters
+
+| Name           | Type           | Description | Notes                 |
+| -------------- | -------------- | ----------- | --------------------- |
+| **productDto** | **ProductDto** |             |                       |
+| **id**         | [**string**]   |             | defaults to undefined |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: _/_
+
+### HTTP response details
+
+| Status code | Description           | Response headers |
+| ----------- | --------------------- | ---------------- |
+| **200**     | OK                    | -                |
+| **400**     | Bad Request           | -                |
+| **500**     | Internal Server Error | -                |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **uploadProductSectionContent**
+
+> string uploadProductSectionContent()
+
+### Example
+
+```typescript
+import { ProductResourceApi, Configuration } from "./api";
+
+const configuration = new Configuration();
+const apiInstance = new ProductResourceApi(configuration);
+
+let productId: string; // (default to undefined)
+let sectionId: string; // (default to undefined)
+
+const { status, data } = await apiInstance.uploadProductSectionContent(
+  productId,
+  sectionId,
+);
+```
+
+### Parameters
+
+| Name          | Type         | Description | Notes                 |
+| ------------- | ------------ | ----------- | --------------------- |
+| **productId** | [**string**] |             | defaults to undefined |
+| **sectionId** | [**string**] |             | defaults to undefined |
+
+### Return type
+
+**string**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: _/_
+
+### HTTP response details
+
+| Status code | Description           | Response headers |
+| ----------- | --------------------- | ---------------- |
+| **200**     | OK                    | -                |
+| **400**     | Bad Request           | -                |
+| **500**     | Internal Server Error | -                |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

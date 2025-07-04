@@ -1,0 +1,28 @@
+.auth-page {
+  display: flex;
+  min-height: 100vh;
+
+  .img {
+    flex: 1;
+  }
+  .ctn {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  .data {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .terms {
+    font-size: 15px;
+  }
+}

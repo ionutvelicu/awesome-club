@@ -1,0 +1,23 @@
+---
+import Layout from "../layouts/Layout.astro";
+import StartCtaBtn from "../components/btn/StartCtaBtn";
+import "../styles/welcome.scss";
+import hero from "../assets/hero.png"
+---
+
+<Layout title="Monetize your Knowledge">
+  <div class="hero">
+    <div class="wrap">
+      <img src={hero.src} alt="hero" />
+      <h1>Monetize your knowledge</h1>
+      <p>
+        The easiest way to monetize your expertise
+        <br />
+        by selling digital products and memberships.
+        <br />
+        Teach. Sell. Earn.
+      </p>
+      <StartCtaBtn client:idle />
+    </div>
+  </div>
+</Layout>
