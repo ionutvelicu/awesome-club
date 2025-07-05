@@ -1,8 +1,8 @@
 package club.awesome.api.resource
 
 import club.awesome.api.domain.Product
-import club.awesome.api.dto.MemberProductStatusDto
-import club.awesome.api.dto.ProductDto
+import club.awesome.api.dto.*
+import club.awesome.api.repo.MemberProductRepo
 import club.awesome.api.repo.MemberRepo
 import club.awesome.api.repo.ProductRepo
 import club.awesome.api.resource.exception.NotAllowed
@@ -22,6 +22,7 @@ class ProductResource (
   private val utils: Utils,
   private val memberRepo: MemberRepo,
   private val productRepo: ProductRepo,
+  private val memberProductRepo: MemberProductRepo,
   private val productService: ProductService
 ) {
   private val log = LoggerFactory.getLogger(ProductResource::class.java)
@@ -39,9 +40,23 @@ class ProductResource (
     return productRepo.findAllByMemberId(loggedId).map { it.toDto() }
   }
 
+  @GetMapping("/products/purchased")
+  fun getPurchasedProducts(): List<MemberProductLightDto> {
+    val loggedId = utils.loggedId() ?: throw NotAllowed(".not.allowed")
+    return memberProductRepo.findByOwnerId(loggedId).map { it.toLightDto() }
+  }
+
+  @GetMapping("/products/purchased/{purchasedId}")
+  fun getPurchasedProductDetails(@PathVariable purchasedId: String): MemberProductDto {
+    val loggedId = utils.loggedId() ?: throw NotAllowed("not.allowed")
+    val purchase = memberProductRepo.findOneByIdWithProduct(purchasedId) ?: throw NotFoundException("not.found")
+    if (purchase.ownerId != loggedId) throw NotAllowed("not.allowed")
+
+    return purchase.toDto()
+  }
+
   @GetMapping("/products/{id}")
   fun getProduct(@PathVariable id: String): ProductDto {
-    val loggedId = utils.loggedId() ?: throw NotAllowed("not.allowed")
     val product =  productRepo.findOneById(id) ?: throw NotFoundException("product.not.found")
     return product.toDto()
   }
@@ -52,6 +67,15 @@ class ProductResource (
     val product = productService.getOwnerProduct(loggedId, id)
     return MemberProductStatusDto(
       purchased = product != null
+    )
+  }
+
+  @PostMapping("/products/{id}/buy")
+  fun buyProduct(@PathVariable id: String): BuyProductResponse {
+    val loggedId = utils.loggedId() ?: throw NotAllowed("not.allowed")
+    val purchase = productService.buyProduct(id, loggedId)
+    return BuyProductResponse(
+      purchaseId = purchase.id
     )
   }
 

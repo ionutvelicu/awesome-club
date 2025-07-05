@@ -5,11 +5,13 @@ import Products from "./Products";
 import Payments from "./Payments";
 import Statistics from "./Statistics";
 import ProductDetails from "./ProductDetails";
+import CourseView from "./CourseView";
 
 export default function App() {
   return (
     <BrowserRouter basename="/app">
       <Routes>
+        <Route path="/courses/:purchaseId" element={<CourseView />} />
         <Route path="/courses" element={<MyCourses />} />
         <Route path="/dashboard" element={<Dashboard />}>
           <Route index element={<Products />} />

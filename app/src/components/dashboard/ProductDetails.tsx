@@ -16,7 +16,7 @@ export default function ProductDetails() {
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0.0);
+  const [price, setPrice] = useState(null as number | null);
   const [sections, setSections] = useState([] as ProductSectionDto[]);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -28,14 +28,15 @@ export default function ProductDetails() {
     if (!!productId) {
       setLoading(true);
       setId(productId);
-      ProductApi.getProduct(productId)
+      ProductApi.get(productId)
         .then((resp) => {
           setName(resp.data.name);
           setUrl(resp.data.url);
           setDescription(resp.data.description);
           setPrice(resp.data.price);
-
-          const data = JSON.parse(resp.data.data) as ProductSectionDto[];
+          const data = JSON.parse(
+            resp.data.data || "[]",
+          ) as ProductSectionDto[];
           setSections(data);
         })
         .catch((err) => {
@@ -45,9 +46,9 @@ export default function ProductDetails() {
           setLoading(false);
         });
     } else {
-      ProductApi.createProduct().then((resp) => {
+      ProductApi.create().then((resp) => {
         setId(resp.data.id);
-        navigate(`/api/products/${resp.data.id}`, { replace: true });
+        navigate(`/dashboard/products/${resp.data.id}`, { replace: true });
       });
     }
   }, [productId]);
@@ -70,10 +71,10 @@ export default function ProductDetails() {
 
   function save() {
     setSaving(true);
-    ProductApi.updateProduct(id, {
+    ProductApi.update(id, {
       name,
       description,
-      price,
+      price: price ?? 0,
       url,
       data: JSON.stringify(sections),
     })

@@ -8,7 +8,7 @@ const MSG: { [key: string]: string } = {
 
 export function handleAxiosError(err: AxiosError) {
   let content = "Something went wrong. Please retry or contact us.";
-  if ((err.response?.data as any).message) {
+  if ((err.response?.data as any)?.message) {
     const key = (err.response?.data as any).message as string;
     content = MSG[key] ?? content;
   }

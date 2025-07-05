@@ -6,5 +6,11 @@ import org.springframework.data.jpa.repository.Query
 
 interface MemberProductRepo: JpaRepository<MemberProduct, String> {
   @Query("SELECT mp FROM MemberProduct mp LEFT JOIN FETCH mp.product WHERE mp.ownerId = :ownerId and mp.product.id = :productId")
-  fun findByOwnerIdAndProductId(ownerId: String, productId: String): MemberProduct?
+  fun findOneByOwnerIdAndProductIdWidthProduct(ownerId: String, productId: String): MemberProduct?
+
+  @Query("SELECT mp FROM MemberProduct mp LEFT JOIN FETCH mp.product WHERE mp.id = :id")
+  fun findOneByIdWithProduct(id: String): MemberProduct?
+
+  @Query("SELECT mp FROM MemberProduct mp LEFT JOIN FETCH mp.product WHERE mp.ownerId = :ownerId")
+  fun findByOwnerId(ownerId: String): List<MemberProduct>
 }

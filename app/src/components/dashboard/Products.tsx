@@ -11,7 +11,7 @@ export default function Products() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    ProductApi.getProductsForAuthor()
+    ProductApi.getForAuthor()
       .then((resp) => {
         setProducts(resp.data);
       })
@@ -30,7 +30,7 @@ export default function Products() {
   }
 
   function removeProduct(product: ProductDto) {
-    ProductApi.deleteProduct(product.id)
+    ProductApi.delete(product.id)
       .then(() => {
         setProducts(products.filter((it) => it.id !== product.id));
       })

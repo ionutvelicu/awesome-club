@@ -1,6 +1,9 @@
 import type { AxiosPromise } from "axios";
 import {
   ProductResourceApi,
+  type BuyProductResponse,
+  type MemberProductDto,
+  type MemberProductLightDto,
   type MemberProductStatusDto,
   type ProductDto,
 } from "../generated/api-client";
@@ -9,28 +12,40 @@ import { ops, apiConfig } from "./config";
 const api = new ProductResourceApi(apiConfig);
 
 const ProductApi = {
-  getProductsForAuthor(): AxiosPromise<ProductDto[]> {
+  getForAuthor(): AxiosPromise<ProductDto[]> {
     return api.getProductsForAuthor(ops());
   },
 
-  getProduct(id: string): AxiosPromise<ProductDto> {
+  get(id: string): AxiosPromise<ProductDto> {
     return api.getProduct(id, ops());
   },
 
-  createProduct(): AxiosPromise<ProductDto> {
+  create(): AxiosPromise<ProductDto> {
     return api.createProduct(ops());
   },
 
-  updateProduct(id: string, body: Partial<ProductDto>): AxiosPromise<void> {
+  update(id: string, body: Partial<ProductDto>): AxiosPromise<void> {
     return api.updateProduct(id, body as ProductDto, ops());
   },
 
-  deleteProduct(id: string): AxiosPromise<void> {
+  delete(id: string): AxiosPromise<void> {
     return api.deleteProduct(id, ops());
   },
 
-  checkProductStatus(productId: string): AxiosPromise<MemberProductStatusDto> {
+  checkStatus(productId: string): AxiosPromise<MemberProductStatusDto> {
     return api.checkProductStatus(productId, ops());
+  },
+
+  buy(productId: string): AxiosPromise<BuyProductResponse> {
+    return api.buyProduct(productId, ops());
+  },
+
+  getPurchased(): AxiosPromise<MemberProductLightDto[]> {
+    return api.getPurchasedProducts(ops());
+  },
+
+  getPurchasedProductDetails(id: string): AxiosPromise<MemberProductDto> {
+    return api.getPurchasedProductDetails(id, ops());
   },
 };
 

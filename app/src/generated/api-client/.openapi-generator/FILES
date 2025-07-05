@@ -8,6 +8,9 @@ docs/AuthRequest.md
 docs/AuthResourceApi.md
 docs/AuthResponse.md
 docs/AuthStatus.md
+docs/BuyProductResponse.md
+docs/MemberProductDto.md
+docs/MemberProductLightDto.md
 docs/MemberProductStatusDto.md
 docs/MemberResourceApi.md
 docs/ProductDto.md

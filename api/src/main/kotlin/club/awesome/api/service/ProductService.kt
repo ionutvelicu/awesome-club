@@ -7,6 +7,7 @@ import club.awesome.api.domain.ProductStatus
 import club.awesome.api.dto.ProductDto
 import club.awesome.api.repo.MemberProductRepo
 import club.awesome.api.repo.ProductRepo
+import club.awesome.api.resource.exception.NotFoundException
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.util.*
@@ -42,7 +43,18 @@ class ProductService(
   }
 
   fun getOwnerProduct(ownerId: String, productId: String): MemberProduct? {
-    return memberProductRepo.findByOwnerIdAndProductId(ownerId, productId)
+    return memberProductRepo.findOneByOwnerIdAndProductIdWidthProduct(ownerId, productId)
+  }
+
+  fun buyProduct(productId: String, ownerId: String): MemberProduct {
+    val product = productRepo.findOneById(productId) ?: throw NotFoundException("product.not.found")
+    return memberProductRepo.save(MemberProduct(
+      id = UUID.randomUUID().toString(),
+      ownerId = ownerId,
+      price = product.price,
+      product = product,
+      purchaseDate = Date()
+    ))
   }
 
   fun delete(product: Product) {

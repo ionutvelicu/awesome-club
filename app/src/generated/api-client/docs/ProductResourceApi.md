@@ -4,13 +4,62 @@ All URIs are relative to _http://localhost:8080/api_
 
 | Method                                                          | HTTP request                                               | Description |
 | --------------------------------------------------------------- | ---------------------------------------------------------- | ----------- |
+| [**buyProduct**](#buyproduct)                                   | **POST** /products/{id}/buy                                |             |
 | [**checkProductStatus**](#checkproductstatus)                   | **GET** /products/{id}/status                              |             |
 | [**createProduct**](#createproduct)                             | **POST** /products                                         |             |
 | [**deleteProduct**](#deleteproduct)                             | **DELETE** /products/{id}                                  |             |
 | [**getProduct**](#getproduct)                                   | **GET** /products/{id}                                     |             |
 | [**getProductsForAuthor**](#getproductsforauthor)               | **GET** /products                                          |             |
+| [**getPurchasedProductDetails**](#getpurchasedproductdetails)   | **GET** /products/purchased/{purchasedId}                  |             |
+| [**getPurchasedProducts**](#getpurchasedproducts)               | **GET** /products/purchased                                |             |
 | [**updateProduct**](#updateproduct)                             | **POST** /products/{id}                                    |             |
 | [**uploadProductSectionContent**](#uploadproductsectioncontent) | **POST** /products/{productId}/section/{sectionId}/content |             |
+
+# **buyProduct**
+
+> BuyProductResponse buyProduct()
+
+### Example
+
+```typescript
+import { ProductResourceApi, Configuration } from "./api";
+
+const configuration = new Configuration();
+const apiInstance = new ProductResourceApi(configuration);
+
+let id: string; // (default to undefined)
+
+const { status, data } = await apiInstance.buyProduct(id);
+```
+
+### Parameters
+
+| Name   | Type         | Description | Notes                 |
+| ------ | ------------ | ----------- | --------------------- |
+| **id** | [**string**] |             | defaults to undefined |
+
+### Return type
+
+**BuyProductResponse**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: _/_
+
+### HTTP response details
+
+| Status code | Description           | Response headers |
+| ----------- | --------------------- | ---------------- |
+| **200**     | OK                    | -                |
+| **400**     | Bad Request           | -                |
+| **500**     | Internal Server Error | -                |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **checkProductStatus**
 
@@ -214,6 +263,95 @@ This endpoint does not have any parameters.
 ### Return type
 
 **Array<ProductDto>**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: _/_
+
+### HTTP response details
+
+| Status code | Description           | Response headers |
+| ----------- | --------------------- | ---------------- |
+| **200**     | OK                    | -                |
+| **400**     | Bad Request           | -                |
+| **500**     | Internal Server Error | -                |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getPurchasedProductDetails**
+
+> MemberProductDto getPurchasedProductDetails()
+
+### Example
+
+```typescript
+import { ProductResourceApi, Configuration } from "./api";
+
+const configuration = new Configuration();
+const apiInstance = new ProductResourceApi(configuration);
+
+let purchasedId: string; // (default to undefined)
+
+const { status, data } =
+  await apiInstance.getPurchasedProductDetails(purchasedId);
+```
+
+### Parameters
+
+| Name            | Type         | Description | Notes                 |
+| --------------- | ------------ | ----------- | --------------------- |
+| **purchasedId** | [**string**] |             | defaults to undefined |
+
+### Return type
+
+**MemberProductDto**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: _/_
+
+### HTTP response details
+
+| Status code | Description           | Response headers |
+| ----------- | --------------------- | ---------------- |
+| **200**     | OK                    | -                |
+| **400**     | Bad Request           | -                |
+| **500**     | Internal Server Error | -                |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getPurchasedProducts**
+
+> Array<MemberProductLightDto> getPurchasedProducts()
+
+### Example
+
+```typescript
+import { ProductResourceApi, Configuration } from "./api";
+
+const configuration = new Configuration();
+const apiInstance = new ProductResourceApi(configuration);
+
+const { status, data } = await apiInstance.getPurchasedProducts();
+```
+
+### Parameters
+
+This endpoint does not have any parameters.
+
+### Return type
+
+**Array<MemberProductLightDto>**
 
 ### Authorization
 

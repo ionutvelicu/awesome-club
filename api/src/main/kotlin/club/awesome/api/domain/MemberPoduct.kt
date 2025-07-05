@@ -1,6 +1,9 @@
 package club.awesome.api.domain
 
+import club.awesome.api.dto.MemberProductDto
+import club.awesome.api.dto.MemberProductLightDto
 import jakarta.persistence.*
+import org.hibernate.Hibernate
 import org.springframework.data.jpa.repository.Temporal
 import java.util.*
 
@@ -16,6 +19,10 @@ data class MemberProduct(
 
   var paymentData: String = "",
 
+  var progress: Double = 0.0,
+
+  var complete: Boolean = false,
+
   @ManyToOne
   @JoinColumn(name = "product_id")
   var product: Product = Product(),
@@ -24,7 +31,31 @@ data class MemberProduct(
   @Temporal(TemporalType.TIMESTAMP)
   var purchaseDate: Date = Date(),
 ) : BaseEntity() {
-  override fun equals(other: Any?) = other is Member && other.id == id
+  override fun equals(other: Any?) = other is MemberProduct && other.id == id
   override fun hashCode() = id.hashCode()
   override fun toString() = id
+
+  fun toDto(): MemberProductDto {
+    val dto = MemberProductDto(
+      purchaseId = this.id,
+      complete = this.complete,
+      progress = this.progress
+    )
+    if (Hibernate.isInitialized(this.product)) {
+      dto.product = this.product.toDto()
+    }
+    return dto
+  }
+
+  fun toLightDto(): MemberProductLightDto {
+    val dto = MemberProductLightDto(
+      purchaseId = this.id,
+      complete = this.complete,
+      progress = this.progress
+    )
+    if (Hibernate.isInitialized(this.product)) {
+      dto.name = this.product.name
+    }
+    return dto
+  }
 }
