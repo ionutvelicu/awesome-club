@@ -4,12 +4,59 @@ All URIs are relative to _http://localhost:8080/api_
 
 | Method                                                          | HTTP request                                               | Description |
 | --------------------------------------------------------------- | ---------------------------------------------------------- | ----------- |
+| [**checkProductStatus**](#checkproductstatus)                   | **GET** /products/{id}/status                              |             |
 | [**createProduct**](#createproduct)                             | **POST** /products                                         |             |
 | [**deleteProduct**](#deleteproduct)                             | **DELETE** /products/{id}                                  |             |
 | [**getProduct**](#getproduct)                                   | **GET** /products/{id}                                     |             |
 | [**getProductsForAuthor**](#getproductsforauthor)               | **GET** /products                                          |             |
 | [**updateProduct**](#updateproduct)                             | **POST** /products/{id}                                    |             |
 | [**uploadProductSectionContent**](#uploadproductsectioncontent) | **POST** /products/{productId}/section/{sectionId}/content |             |
+
+# **checkProductStatus**
+
+> MemberProductStatusDto checkProductStatus()
+
+### Example
+
+```typescript
+import { ProductResourceApi, Configuration } from "./api";
+
+const configuration = new Configuration();
+const apiInstance = new ProductResourceApi(configuration);
+
+let id: string; // (default to undefined)
+
+const { status, data } = await apiInstance.checkProductStatus(id);
+```
+
+### Parameters
+
+| Name   | Type         | Description | Notes                 |
+| ------ | ------------ | ----------- | --------------------- |
+| **id** | [**string**] |             | defaults to undefined |
+
+### Return type
+
+**MemberProductStatusDto**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: _/_
+
+### HTTP response details
+
+| Status code | Description           | Response headers |
+| ----------- | --------------------- | ---------------- |
+| **200**     | OK                    | -                |
+| **400**     | Bad Request           | -                |
+| **500**     | Internal Server Error | -                |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **createProduct**
 

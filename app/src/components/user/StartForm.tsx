@@ -19,7 +19,7 @@ export default function StartForm({ author }: StartFormProps) {
     AuthApi.register(email, password, author)
       .then((resp) => {
         Storage.setToken(resp.data.token);
-        window.location.href = author ? Routes.CoursesNew : Routes.Courses;
+        window.location.href = author ? Routes.ProductsNew : Routes.Courses;
       })
       .catch((err) => {
         handleAxiosError(err);
@@ -33,11 +33,13 @@ export default function StartForm({ author }: StartFormProps) {
     <>
       <Input
         type="email"
+        size="large"
         value={email}
         onChange={(ev) => setEmail(ev.target.value)}
       />
       <Input
         type="password"
+        size="large"
         value={password}
         onChange={(ev) => setPassword(ev.target.value)}
       />

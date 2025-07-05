@@ -1,6 +1,7 @@
 package club.awesome.api.resource
 
 import club.awesome.api.domain.Product
+import club.awesome.api.dto.MemberProductStatusDto
 import club.awesome.api.dto.ProductDto
 import club.awesome.api.repo.MemberRepo
 import club.awesome.api.repo.ProductRepo
@@ -40,12 +41,18 @@ class ProductResource (
 
   @GetMapping("/products/{id}")
   fun getProduct(@PathVariable id: String): ProductDto {
-    log.info("=> here")
     val loggedId = utils.loggedId() ?: throw NotAllowed("not.allowed")
-    log.info("=> loggedId $loggedId")
     val product =  productRepo.findOneById(id) ?: throw NotFoundException("product.not.found")
-    log.info("=> product ${product.id}")
     return product.toDto()
+  }
+
+  @GetMapping("/products/{id}/status")
+  fun checkProductStatus(@PathVariable id: String): MemberProductStatusDto {
+    val loggedId = utils.loggedId() ?: throw NotAllowed("not.allowed")
+    val product = productService.getOwnerProduct(loggedId, id)
+    return MemberProductStatusDto(
+      purchased = product != null
+    )
   }
 
   @PostMapping("/products")

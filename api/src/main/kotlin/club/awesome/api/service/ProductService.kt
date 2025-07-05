@@ -1,18 +1,23 @@
 package club.awesome.api.service
 
 import club.awesome.api.domain.Member
+import club.awesome.api.domain.MemberProduct
 import club.awesome.api.domain.Product
 import club.awesome.api.domain.ProductStatus
 import club.awesome.api.dto.ProductDto
+import club.awesome.api.repo.MemberProductRepo
 import club.awesome.api.repo.ProductRepo
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
 class ProductService(
   private val utils: Utils,
-  private val productRepo: ProductRepo
+  private val productRepo: ProductRepo,
+  private val memberProductRepo: MemberProductRepo
 ) {
+  private val log = LoggerFactory.getLogger(ProductService::class.java)
 
   fun createProduct(author: Member): Product {
     val product = Product(
@@ -27,10 +32,17 @@ class ProductService(
     product.name = dto.name
 
     product.url = utils.toUrl(dto.url)
+    product.price = dto.price
     product.description = dto.description
     product.data = dto.data
+    product.hero = dto.hero
+    log.info("=> ${dto.price}")
 
     productRepo.save(product)
+  }
+
+  fun getOwnerProduct(ownerId: String, productId: String): MemberProduct? {
+    return memberProductRepo.findByOwnerIdAndProductId(ownerId, productId)
   }
 
   fun delete(product: Product) {

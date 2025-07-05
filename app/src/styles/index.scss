@@ -38,6 +38,7 @@ p {
   box-shadow: none;
   text-decoration: none;
   text-align: center;
+  font-family: "Raleway", sans-serif;
 
   &.ant-btn-default {
     border-radius: 3px;
@@ -65,9 +66,14 @@ p {
     border-radius: 8px;
 
     &.cta {
+      border: 0;
       height: 72px;
+      padding: 0 30px;
       line-height: 70px;
       font-size: 19px;
     }
   }
+}
+
+.ant-input {
 }

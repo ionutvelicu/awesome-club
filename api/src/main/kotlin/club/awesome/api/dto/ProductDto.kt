@@ -6,6 +6,7 @@ data class ProductDto(
   val description: String = "",
   val url: String = "",
   val hero: String = "",
+  val price: Double = 0.0,
   val status: String = "",
   val data: String = "",
   val authorId: String = "",

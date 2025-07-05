@@ -1,4 +1,4 @@
-import { Button, Input, message, Skeleton } from "antd";
+import { Button, Input, InputNumber, message, Skeleton } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -16,6 +16,7 @@ export default function ProductDetails() {
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [description, setDescription] = useState("");
+  const [price, setPrice] = useState(0.0);
   const [sections, setSections] = useState([] as ProductSectionDto[]);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -32,6 +33,7 @@ export default function ProductDetails() {
           setName(resp.data.name);
           setUrl(resp.data.url);
           setDescription(resp.data.description);
+          setPrice(resp.data.price);
 
           const data = JSON.parse(resp.data.data) as ProductSectionDto[];
           setSections(data);
@@ -71,6 +73,7 @@ export default function ProductDetails() {
     ProductApi.updateProduct(id, {
       name,
       description,
+      price,
       url,
       data: JSON.stringify(sections),
     })
@@ -123,6 +126,14 @@ export default function ProductDetails() {
             placeholder="Public Url"
             value={url}
             onChange={(ev) => setUrl(ev.target.value)}
+          />
+
+          <InputNumber
+            size="large"
+            type="num"
+            placeholder="Price"
+            value={price}
+            onChange={(val) => setPrice(val ?? 0)}
           />
 
           <TextArea

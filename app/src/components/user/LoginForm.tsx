@@ -28,12 +28,14 @@ export default function LoginForm() {
       <Input
         name="email"
         type="email"
+        size="large"
         value={email}
         onChange={(ev) => setEmail(ev.target.value)}
       />
       <Input
         name="password"
         type="password"
+        size="large"
         value={password}
         onChange={(ev) => setPassword(ev.target.value)}
       />

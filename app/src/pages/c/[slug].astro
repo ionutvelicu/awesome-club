@@ -4,6 +4,7 @@ import {fetchProduct} from "../../lib/db";
 import {
   type ProductSectionDto,
 } from "../../domain/ProductSectionDto";
+import ProductAction from "../../components/product/ProductAction";
 
 const { slug } = Astro.params;
 
@@ -13,6 +14,10 @@ const sections = JSON.parse(product.data) as ProductSectionDto[]
 
 <Layout title="Courses">
   <h1>{product.name}</h1>
+  <h2>${product.price}</h2>
+
+  <ProductAction id={product.id} price={product.price} client:load />
+
   <p>{product.description}</p>
 
   {sections.map(section => (

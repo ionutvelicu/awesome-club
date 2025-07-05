@@ -1,5 +1,9 @@
 import type { AxiosPromise } from "axios";
-import { ProductResourceApi, type ProductDto } from "../generated/api-client";
+import {
+  ProductResourceApi,
+  type MemberProductStatusDto,
+  type ProductDto,
+} from "../generated/api-client";
 import { ops, apiConfig } from "./config";
 
 const api = new ProductResourceApi(apiConfig);
@@ -23,6 +27,10 @@ const ProductApi = {
 
   deleteProduct(id: string): AxiosPromise<void> {
     return api.deleteProduct(id, ops());
+  },
+
+  checkProductStatus(productId: string): AxiosPromise<MemberProductStatusDto> {
+    return api.checkProductStatus(productId, ops());
   },
 };
 

@@ -17,6 +17,8 @@ data class Product(
 
   var hero: String = "",
 
+  var price: Double = 0.0,
+
   @Column(columnDefinition = "text")
   var data: String = "",
 
@@ -36,6 +38,7 @@ data class Product(
     description = description,
     url = url,
     hero = hero,
+    price = price,
     status = status.name,
     data = data,
     authorId = author?.id ?: "",

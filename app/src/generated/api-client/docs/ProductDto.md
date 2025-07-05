@@ -9,6 +9,7 @@
 | **description** | **string** |             | [default to undefined] |
 | **url**         | **string** |             | [default to undefined] |
 | **hero**        | **string** |             | [default to undefined] |
+| **price**       | **number** |             | [default to undefined] |
 | **status**      | **string** |             | [default to undefined] |
 | **data**        | **string** |             | [default to undefined] |
 | **authorId**    | **string** |             | [default to undefined] |
@@ -25,6 +26,7 @@ const instance: ProductDto = {
   description,
   url,
   hero,
+  price,
   status,
   data,
   authorId,
