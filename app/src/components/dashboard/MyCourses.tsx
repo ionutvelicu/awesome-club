@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import type { MemberProductDto, MemberProductLightDto } from "../../generated/api-client";
+import type {
+  MemberProductDto,
+  MemberProductLightDto,
+} from "../../generated/api-client";
 import ProductApi from "../../api/ProductApi";
 import { handleAxiosError } from "../../services/ErrorService";
 import { Skeleton } from "antd";
@@ -39,9 +42,7 @@ export default function MyCourses() {
           <ul>
             {courses.map((it) => (
               <li key={it.purchaseId}>
-                <h3 onClick={() => goToPurchase(it.purchaseId)}>
-                  {it.name}
-                </h3>
+                <h3 onClick={() => goToPurchase(it.purchaseId)}>{it.name}</h3>
               </li>
             ))}
           </ul>

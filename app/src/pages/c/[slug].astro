@@ -1,15 +1,15 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import {fetchProduct} from "../../lib/db";
-import {
-  type ProductSectionDto,
-} from "../../domain/ProductSectionDto";
-import ProductAction from "../../components/product/ProductAction";
+  import Layout from '../../layouts/Layout.astro';
+  import { fetchProduct } from "../../lib/db";
+  import {
+    type ProductSectionDto,
+  } from "../../domain/ProductSectionDto";
+  import ProductAction from "../../components/product/ProductAction";
 
-const { slug } = Astro.params;
+  const { slug } = Astro.params;
 
-const product = await fetchProduct(slug!);
-const sections = JSON.parse(product.data) as ProductSectionDto[]
+  const product = await fetchProduct(slug!);
+  const sections = JSON.parse(product.data) as ProductSectionDto[]
 ---
 
 <Layout title="Courses">
@@ -21,9 +21,9 @@ const sections = JSON.parse(product.data) as ProductSectionDto[]
   <p>{product.description}</p>
 
   {sections.map(section => (
-    <section>
-      <h2>{section.title}</h2>
-      <p>{section.description}</p>
-    </section>
+  <section>
+    <h2>{section.title}</h2>
+    <p>{section.description}</p>
+  </section>
   ))}
 </Layout>

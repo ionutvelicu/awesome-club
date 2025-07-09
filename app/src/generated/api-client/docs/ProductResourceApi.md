@@ -17,7 +17,7 @@ All URIs are relative to _http://localhost:8080/api_
 
 # **buyProduct**
 
-> BuyProductResponse buyProduct()
+> MemberProduct buyProduct()
 
 ### Example
 
@@ -40,7 +40,7 @@ const { status, data } = await apiInstance.buyProduct(id);
 
 ### Return type
 
-**BuyProductResponse**
+**MemberProduct**
 
 ### Authorization
 

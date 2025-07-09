@@ -1,7 +1,13 @@
-import { Button, Modal } from "antd";
-import ProductApi from "../../api/ProductApi";
-import { handleAxiosError } from "../../services/ErrorService";
-import { useState } from "react";
+import { Modal } from "antd";
+import PaymentApi from "../../api/PaymentApi";
+import { useMemo, useState } from "react";
+import { CheckoutProvider } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "./CheckoutForm";
+
+const stripePromise = loadStripe(
+  import.meta.env.PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "",
+);
 
 interface BuyProductModalProps {
   open: boolean;
@@ -14,29 +20,39 @@ export default function BuyProductModal({
   productId,
   onClose,
 }: BuyProductModalProps) {
-  const [buying, setBuying] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [clientEmail, setClientEmail] = useState<string>("");
 
-  function buy() {
-    setBuying(true);
-    ProductApi.buy(productId)
-      .then((resp) => {
-        console.log(resp);
-      })
-      .catch((err) => {
-        handleAxiosError(err);
-      })
-      .finally(() => {
-        setBuying(false);
-      });
-  }
+  const promise = useMemo(() => {
+    if (open) {
+      setIsLoading(true);
+      return PaymentApi.createCheckoutSession(productId)
+        .then((resp) => {
+          console.log("resp", resp);
+          setClientEmail(resp.data.clientEmail);
+          return resp.data.clientSecret;
+        })
+        .finally(() => setIsLoading(false));
+    }
+  }, [open]);
 
   return (
-    <>
-      <Modal open={open} onCancel={onClose}>
-        <Button loading={buying} onClick={buy}>
-          Buy
-        </Button>
-      </Modal>
-    </>
+    <Modal
+      title="Checkout"
+      open={open}
+      onCancel={onClose}
+      loading={isLoading}
+      centered
+      footer={null}
+    >
+      <CheckoutProvider
+        stripe={stripePromise}
+        options={{
+          fetchClientSecret: async () => promise,
+        }}
+      >
+        <CheckoutForm email={clientEmail} />
+      </CheckoutProvider>
+    </Modal>
   );
 }
