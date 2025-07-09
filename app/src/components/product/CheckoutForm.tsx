@@ -14,14 +14,12 @@ const CheckoutForm = ({ email }: CheckoutFormProps) => {
 
   useEffect(() => console.log("email", email), [email]);
   const handleSubmit = async () => {
-    console.log("in submit");
     setIsLoading(true);
     const isValidEmail = await checkout.updateEmail(email);
 
     if (!isValidEmail) setMessage(isValidEmail.error.message);
     const confirmResult = await checkout.confirm();
 
-    console.log("confirmResult ", confirmResult);
     if (confirmResult.type === "error") {
       setMessage(confirmResult.error.message);
     }

@@ -28,7 +28,6 @@ export default function BuyProductModal({
       setIsLoading(true);
       return PaymentApi.createCheckoutSession(productId)
         .then((resp) => {
-          console.log("resp", resp);
           setClientEmail(resp.data.clientEmail);
           return resp.data.clientSecret;
         })
