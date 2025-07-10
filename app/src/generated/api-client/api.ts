@@ -111,21 +111,177 @@ export interface AuthStatus {
 /**
  *
  * @export
- * @interface BuyProductResponse
+ * @interface Member
  */
-export interface BuyProductResponse {
-  /**
-   *
-   * @type {boolean}
-   * @memberof BuyProductResponse
-   */
-  success: boolean;
+export interface Member {
   /**
    *
    * @type {string}
-   * @memberof BuyProductResponse
+   * @memberof Member
    */
-  purchaseId: string;
+  id: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Member
+   */
+  email: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Member
+   */
+  password: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Member
+   */
+  name: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof Member
+   */
+  isAuthor: boolean;
+  /**
+   *
+   * @type {string}
+   * @memberof Member
+   */
+  lastLogin: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Member
+   */
+  state: MemberStateEnum;
+  /**
+   *
+   * @type {Array<Product>}
+   * @memberof Member
+   */
+  products: Array<Product>;
+  /**
+   *
+   * @type {string}
+   * @memberof Member
+   */
+  createdDate: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Member
+   */
+  updatedDate: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Member
+   */
+  removedDate: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof Member
+   */
+  removed: boolean;
+  /**
+   *
+   * @type {boolean}
+   * @memberof Member
+   */
+  author?: boolean;
+}
+
+export const MemberStateEnum = {
+  Active: "ACTIVE",
+  Inactive: "INACTIVE",
+  Deleted: "DELETED",
+  Locked: "LOCKED",
+} as const;
+
+export type MemberStateEnum =
+  (typeof MemberStateEnum)[keyof typeof MemberStateEnum];
+
+/**
+ *
+ * @export
+ * @interface MemberProduct
+ */
+export interface MemberProduct {
+  /**
+   *
+   * @type {string}
+   * @memberof MemberProduct
+   */
+  id: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MemberProduct
+   */
+  ownerId: string;
+  /**
+   *
+   * @type {number}
+   * @memberof MemberProduct
+   */
+  price: number;
+  /**
+   *
+   * @type {string}
+   * @memberof MemberProduct
+   */
+  paymentData: string;
+  /**
+   *
+   * @type {number}
+   * @memberof MemberProduct
+   */
+  progress: number;
+  /**
+   *
+   * @type {boolean}
+   * @memberof MemberProduct
+   */
+  complete: boolean;
+  /**
+   *
+   * @type {Product}
+   * @memberof MemberProduct
+   */
+  product: Product;
+  /**
+   *
+   * @type {string}
+   * @memberof MemberProduct
+   */
+  purchaseDate: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MemberProduct
+   */
+  createdDate: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MemberProduct
+   */
+  updatedDate: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MemberProduct
+   */
+  removedDate: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof MemberProduct
+   */
+  removed: boolean;
 }
 /**
  *
@@ -202,6 +358,100 @@ export interface MemberProductStatusDto {
    */
   purchased: boolean;
 }
+/**
+ *
+ * @export
+ * @interface Product
+ */
+export interface Product {
+  /**
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  id: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  name: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  url: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  description: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  hero: string;
+  /**
+   *
+   * @type {number}
+   * @memberof Product
+   */
+  price: number;
+  /**
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  data: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  status: ProductStatusEnum;
+  /**
+   *
+   * @type {Member}
+   * @memberof Product
+   */
+  author?: Member;
+  /**
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  createdDate: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  updatedDate: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Product
+   */
+  removedDate: string;
+  /**
+   *
+   * @type {boolean}
+   * @memberof Product
+   */
+  removed: boolean;
+}
+
+export const ProductStatusEnum = {
+  Draft: "DRAFT",
+  Published: "PUBLISHED",
+} as const;
+
+export type ProductStatusEnum =
+  (typeof ProductStatusEnum)[keyof typeof ProductStatusEnum];
+
 /**
  *
  * @export
@@ -739,6 +989,356 @@ export class MemberResourceApi extends BaseAPI {
 }
 
 /**
+ * PaymentResourceApi - axios parameter creator
+ * @export
+ */
+export const PaymentResourceApiAxiosParamCreator = function (
+  configuration?: Configuration,
+) {
+  return {
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createCheckoutSession: async (
+      id: string,
+      options: RawAxiosRequestConfig = {},
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists("createCheckoutSession", "id", id);
+      const localVarPath = `/payment/{id}/create-checkout-session`.replace(
+        `{${"id"}}`,
+        encodeURIComponent(String(id)),
+      );
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "POST",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createSetupIntent: async (
+      id: string,
+      options: RawAxiosRequestConfig = {},
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists("createSetupIntent", "id", id);
+      const localVarPath = `/payment/{id}/create-setup-intent`.replace(
+        `{${"id"}}`,
+        encodeURIComponent(String(id)),
+      );
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "POST",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSessionStatus: async (
+      id: string,
+      options: RawAxiosRequestConfig = {},
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists("getSessionStatus", "id", id);
+      const localVarPath = `/payment/session/{id}/status`.replace(
+        `{${"id"}}`,
+        encodeURIComponent(String(id)),
+      );
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+  };
+};
+
+/**
+ * PaymentResourceApi - functional programming interface
+ * @export
+ */
+export const PaymentResourceApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator =
+    PaymentResourceApiAxiosParamCreator(configuration);
+  return {
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async createCheckoutSession(
+      id: string,
+      options?: RawAxiosRequestConfig,
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string,
+      ) => AxiosPromise<{ [key: string]: string }>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.createCheckoutSession(id, options);
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap["PaymentResourceApi.createCheckoutSession"]?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration,
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async createSetupIntent(
+      id: string,
+      options?: RawAxiosRequestConfig,
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string,
+      ) => AxiosPromise<{ [key: string]: string }>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.createSetupIntent(id, options);
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap["PaymentResourceApi.createSetupIntent"]?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration,
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getSessionStatus(
+      id: string,
+      options?: RawAxiosRequestConfig,
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string,
+      ) => AxiosPromise<{ [key: string]: string }>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.getSessionStatus(id, options);
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap["PaymentResourceApi.getSessionStatus"]?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration,
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+  };
+};
+
+/**
+ * PaymentResourceApi - factory interface
+ * @export
+ */
+export const PaymentResourceApiFactory = function (
+  configuration?: Configuration,
+  basePath?: string,
+  axios?: AxiosInstance,
+) {
+  const localVarFp = PaymentResourceApiFp(configuration);
+  return {
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createCheckoutSession(
+      id: string,
+      options?: RawAxiosRequestConfig,
+    ): AxiosPromise<{ [key: string]: string }> {
+      return localVarFp
+        .createCheckoutSession(id, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createSetupIntent(
+      id: string,
+      options?: RawAxiosRequestConfig,
+    ): AxiosPromise<{ [key: string]: string }> {
+      return localVarFp
+        .createSetupIntent(id, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getSessionStatus(
+      id: string,
+      options?: RawAxiosRequestConfig,
+    ): AxiosPromise<{ [key: string]: string }> {
+      return localVarFp
+        .getSessionStatus(id, options)
+        .then((request) => request(axios, basePath));
+    },
+  };
+};
+
+/**
+ * PaymentResourceApi - object-oriented interface
+ * @export
+ * @class PaymentResourceApi
+ * @extends {BaseAPI}
+ */
+export class PaymentResourceApi extends BaseAPI {
+  /**
+   *
+   * @param {string} id
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof PaymentResourceApi
+   */
+  public createCheckoutSession(id: string, options?: RawAxiosRequestConfig) {
+    return PaymentResourceApiFp(this.configuration)
+      .createCheckoutSession(id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {string} id
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof PaymentResourceApi
+   */
+  public createSetupIntent(id: string, options?: RawAxiosRequestConfig) {
+    return PaymentResourceApiFp(this.configuration)
+      .createSetupIntent(id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {string} id
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof PaymentResourceApi
+   */
+  public getSessionStatus(id: string, options?: RawAxiosRequestConfig) {
+    return PaymentResourceApiFp(this.configuration)
+      .getSessionStatus(id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+}
+
+/**
  * ProductResourceApi - axios parameter creator
  * @export
  */
@@ -1214,10 +1814,7 @@ export const ProductResourceApiFp = function (configuration?: Configuration) {
       id: string,
       options?: RawAxiosRequestConfig,
     ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string,
-      ) => AxiosPromise<BuyProductResponse>
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<MemberProduct>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.buyProduct(
         id,
@@ -1526,7 +2123,7 @@ export const ProductResourceApiFactory = function (
     buyProduct(
       id: string,
       options?: RawAxiosRequestConfig,
-    ): AxiosPromise<BuyProductResponse> {
+    ): AxiosPromise<MemberProduct> {
       return localVarFp
         .buyProduct(id, options)
         .then((request) => request(axios, basePath));

@@ -1,5 +1,6 @@
 package club.awesome.api.resource
 
+import club.awesome.api.domain.MemberProduct
 import club.awesome.api.domain.Product
 import club.awesome.api.dto.*
 import club.awesome.api.repo.MemberProductRepo
@@ -71,12 +72,9 @@ class ProductResource (
   }
 
   @PostMapping("/products/{id}/buy")
-  fun buyProduct(@PathVariable id: String): BuyProductResponse {
+  fun buyProduct(@PathVariable id: String): MemberProduct {
     val loggedId = utils.loggedId() ?: throw NotAllowed("not.allowed")
-    val purchase = productService.buyProduct(id, loggedId)
-    return BuyProductResponse(
-      purchaseId = purchase.id
-    )
+    return productService.buyProduct(id, loggedId)
   }
 
   @PostMapping("/products")
