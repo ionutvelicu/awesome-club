@@ -1,6 +1,5 @@
 package club.awesome.api.resource
 
-import club.awesome.api.domain.MemberProduct
 import club.awesome.api.domain.Product
 import club.awesome.api.dto.*
 import club.awesome.api.repo.MemberProductRepo
