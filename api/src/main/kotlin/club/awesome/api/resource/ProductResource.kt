@@ -72,9 +72,12 @@ class ProductResource (
   }
 
   @PostMapping("/products/{id}/buy")
-  fun buyProduct(@PathVariable id: String): MemberProduct {
+  fun buyProduct(@PathVariable id: String): BuyProductResponse {
     val loggedId = utils.loggedId() ?: throw NotAllowed("not.allowed")
-    return productService.buyProduct(id, loggedId)
+    val purchase = productService.buyProduct(id, loggedId)
+    return BuyProductResponse(
+      purchaseId = purchase.id
+    )
   }
 
   @PostMapping("/products")

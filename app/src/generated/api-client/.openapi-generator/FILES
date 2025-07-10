@@ -8,14 +8,12 @@ docs/AuthRequest.md
 docs/AuthResourceApi.md
 docs/AuthResponse.md
 docs/AuthStatus.md
-docs/Member.md
-docs/MemberProduct.md
+docs/BuyProductResponse.md
 docs/MemberProductDto.md
 docs/MemberProductLightDto.md
 docs/MemberProductStatusDto.md
 docs/MemberResourceApi.md
 docs/PaymentResourceApi.md
-docs/Product.md
 docs/ProductDto.md
 docs/ProductResourceApi.md
 git_push.sh

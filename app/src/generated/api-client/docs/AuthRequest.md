@@ -1,22 +1,23 @@
 # AuthRequest
 
+
 ## Properties
 
-| Name         | Type        | Description | Notes                             |
-| ------------ | ----------- | ----------- | --------------------------------- |
-| **email**    | **string**  |             | [default to undefined]            |
-| **password** | **string**  |             | [default to undefined]            |
-| **isAuthor** | **boolean** |             | [optional] [default to undefined] |
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**email** | **string** |  | [default to undefined]
+**password** | **string** |  | [default to undefined]
+**isAuthor** | **boolean** |  | [optional] [default to undefined]
 
 ## Example
 
 ```typescript
-import { AuthRequest } from "./api";
+import { AuthRequest } from './api';
 
 const instance: AuthRequest = {
-  email,
-  password,
-  isAuthor,
+    email,
+    password,
+    isAuthor,
 };
 ```
 

@@ -1,36 +1,37 @@
 # ProductDto
 
+
 ## Properties
 
-| Name            | Type       | Description | Notes                  |
-| --------------- | ---------- | ----------- | ---------------------- |
-| **id**          | **string** |             | [default to undefined] |
-| **name**        | **string** |             | [default to undefined] |
-| **description** | **string** |             | [default to undefined] |
-| **url**         | **string** |             | [default to undefined] |
-| **hero**        | **string** |             | [default to undefined] |
-| **price**       | **number** |             | [default to undefined] |
-| **status**      | **string** |             | [default to undefined] |
-| **data**        | **string** |             | [default to undefined] |
-| **authorId**    | **string** |             | [default to undefined] |
-| **authorName**  | **string** |             | [default to undefined] |
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **string** |  | [default to undefined]
+**name** | **string** |  | [default to undefined]
+**description** | **string** |  | [default to undefined]
+**url** | **string** |  | [default to undefined]
+**hero** | **string** |  | [default to undefined]
+**price** | **number** |  | [default to undefined]
+**status** | **string** |  | [default to undefined]
+**data** | **string** |  | [default to undefined]
+**authorId** | **string** |  | [default to undefined]
+**authorName** | **string** |  | [default to undefined]
 
 ## Example
 
 ```typescript
-import { ProductDto } from "./api";
+import { ProductDto } from './api';
 
 const instance: ProductDto = {
-  id,
-  name,
-  description,
-  url,
-  hero,
-  price,
-  status,
-  data,
-  authorId,
-  authorName,
+    id,
+    name,
+    description,
+    url,
+    hero,
+    price,
+    status,
+    data,
+    authorId,
+    authorName,
 };
 ```
 

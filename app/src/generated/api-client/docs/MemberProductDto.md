@@ -1,24 +1,25 @@
 # MemberProductDto
 
+
 ## Properties
 
-| Name           | Type                            | Description | Notes                  |
-| -------------- | ------------------------------- | ----------- | ---------------------- |
-| **purchaseId** | **string**                      |             | [default to undefined] |
-| **progress**   | **number**                      |             | [default to undefined] |
-| **complete**   | **boolean**                     |             | [default to undefined] |
-| **product**    | [**ProductDto**](ProductDto.md) |             | [default to undefined] |
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**purchaseId** | **string** |  | [default to undefined]
+**progress** | **number** |  | [default to undefined]
+**complete** | **boolean** |  | [default to undefined]
+**product** | [**ProductDto**](ProductDto.md) |  | [default to undefined]
 
 ## Example
 
 ```typescript
-import { MemberProductDto } from "./api";
+import { MemberProductDto } from './api';
 
 const instance: MemberProductDto = {
-  purchaseId,
-  progress,
-  complete,
-  product,
+    purchaseId,
+    progress,
+    complete,
+    product,
 };
 ```
 

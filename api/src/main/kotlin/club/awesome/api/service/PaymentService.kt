@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service
 import java.util.*
 import com.stripe.model.Product as StripeProduct
 
-
 @Service
 class PaymentService(
     private val utils: Utils,
@@ -30,12 +29,10 @@ class PaymentService(
     private val log = LoggerFactory.getLogger(ProductService::class.java)
 
     fun createCheckoutSession(productId: String, ownerId: String): MutableMap<String?, String?> {
+        configureStripe()
+
         val product = productRepo.findOneById(productId) ?: throw NotFoundException("product.not.found")
         val member = memberRepo.findOneById(ownerId) ?: throw NotFoundException("member.not.found")
-
-        val secretKey = environment.getProperty("stripe.secret-key")
-            ?: throw IllegalStateException("Missing STRIPE_SECRET_KEY")
-        Stripe.apiKey = secretKey
 
         val YOUR_DOMAIN = "http://localhost:4321/"
         val stripeProduct = StripeProduct.create(
@@ -74,11 +71,10 @@ class PaymentService(
     }
 
     fun createSetupIntent(productId: String, ownerId: String): MutableMap<String?, String?> {
+        configureStripe()
+
         val product = productRepo.findOneById(productId) ?: throw NotFoundException("product.not.found")
         val member = memberRepo.findOneById(ownerId) ?: throw NotFoundException("member.not.found")
-        val secretKey = environment.getProperty("stripe.secret-key")
-            ?: throw IllegalStateException("Missing STRIPE_SECRET_KEY")
-        Stripe.apiKey = secretKey
 
         val customer = Customer.create(
             CustomerCreateParams.builder()
@@ -105,9 +101,7 @@ class PaymentService(
     }
 
     fun getSessionStatus(sessionId: String): MutableMap<String?, String?> {
-        val secretKey = environment.getProperty("stripe.secret-key")
-            ?: throw IllegalStateException("Missing STRIPE_SECRET_KEY")
-        Stripe.apiKey = secretKey
+        configureStripe()
 
         val session = Session.retrieve(sessionId)
         val map: MutableMap<String?, String?> = HashMap<String?, String?>()
@@ -120,6 +114,12 @@ class PaymentService(
         )
 
         return map
-
     }
+
+    private fun configureStripe() {
+        val secretKey = environment.getProperty("stripe.secret-key")
+            ?: throw IllegalStateException("Missing STRIPE_SECRET_KEY")
+        Stripe.apiKey = secretKey
+    }
+
 }

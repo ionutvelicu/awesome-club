@@ -1,22 +1,23 @@
 # AuthStatus
 
+
 ## Properties
 
-| Name         | Type        | Description | Notes                  |
-| ------------ | ----------- | ----------- | ---------------------- |
-| **loggedIn** | **boolean** |             | [default to undefined] |
-| **label**    | **string**  |             | [default to undefined] |
-| **isAuthor** | **boolean** |             | [default to undefined] |
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**loggedIn** | **boolean** |  | [default to undefined]
+**label** | **string** |  | [default to undefined]
+**isAuthor** | **boolean** |  | [default to undefined]
 
 ## Example
 
 ```typescript
-import { AuthStatus } from "./api";
+import { AuthStatus } from './api';
 
 const instance: AuthStatus = {
-  loggedIn,
-  label,
-  isAuthor,
+    loggedIn,
+    label,
+    isAuthor,
 };
 ```
 

@@ -1,18 +1,19 @@
 # MemberProductStatusDto
 
+
 ## Properties
 
-| Name          | Type        | Description | Notes                  |
-| ------------- | ----------- | ----------- | ---------------------- |
-| **purchased** | **boolean** |             | [default to undefined] |
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**purchased** | **boolean** |  | [default to undefined]
 
 ## Example
 
 ```typescript
-import { MemberProductStatusDto } from "./api";
+import { MemberProductStatusDto } from './api';
 
 const instance: MemberProductStatusDto = {
-  purchased,
+    purchased,
 };
 ```
 

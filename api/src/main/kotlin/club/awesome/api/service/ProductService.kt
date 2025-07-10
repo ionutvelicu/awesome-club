@@ -8,19 +8,16 @@ import club.awesome.api.dto.ProductDto
 import club.awesome.api.repo.MemberProductRepo
 import club.awesome.api.repo.ProductRepo
 import club.awesome.api.resource.exception.NotFoundException
-
 import org.slf4j.LoggerFactory
-import org.springframework.core.env.Environment
 import org.springframework.stereotype.Service
 import java.util.*
 import java.util.UUID
-
 
 @Service
 class ProductService(
   private val utils: Utils,
   private val productRepo: ProductRepo,
-  private val memberProductRepo: MemberProductRepo,
+  private val memberProductRepo: MemberProductRepo
 ) {
   private val log = LoggerFactory.getLogger(ProductService::class.java)
 
