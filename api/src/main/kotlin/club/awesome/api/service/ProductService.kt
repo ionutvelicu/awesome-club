@@ -11,6 +11,7 @@ import club.awesome.api.resource.exception.NotFoundException
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.util.*
+import java.util.UUID
 
 @Service
 class ProductService(
@@ -48,6 +49,7 @@ class ProductService(
 
   fun buyProduct(productId: String, ownerId: String): MemberProduct {
     val product = productRepo.findOneById(productId) ?: throw NotFoundException("product.not.found")
+
     return memberProductRepo.save(MemberProduct(
       id = UUID.randomUUID().toString(),
       ownerId = ownerId,

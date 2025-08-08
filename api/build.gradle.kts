@@ -29,6 +29,7 @@ dependencies {
 	implementation("io.jsonwebtoken:jjwt-impl:0.12.6")
 	implementation("io.jsonwebtoken:jjwt-gson:0.12.6")
 	implementation("commons-validator:commons-validator:1.9.0")
+	implementation("com.stripe:stripe-java:29.2.0")
 
 	implementation("io.jsonwebtoken:jjwt-api:0.12.3")
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.3")

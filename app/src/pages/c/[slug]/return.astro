@@ -1,0 +1,11 @@
+---
+    import Layout from '../../../layouts/Layout.astro';
+    import ResultPage from "../../../components/resultPage/ResultPage";
+
+    const { slug } = Astro.params
+    const sessionId = Astro.url.searchParams.get('session_id');
+---
+
+<Layout title="Return Payment">
+    <ResultPage sessionId={sessionId} productId={slug ?? null} client:only />
+</Layout>

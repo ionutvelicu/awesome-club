@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ProductApi from "../../api/ProductApi";
-import { Button, Modal } from "antd";
+import { Button } from "antd";
 import BuyProductModal from "./BuyProductModal";
 
 interface ProductActionProps {
@@ -45,11 +45,13 @@ export default function ProductAction({ id, price }: ProductActionProps) {
             </Button>
           )}
 
-          <BuyProductModal
-            open={isBuyModal}
-            productId={id}
-            onClose={() => setIsBuyModal(false)}
-          />
+          {isBuyModal && (
+            <BuyProductModal
+              open={isBuyModal}
+              productId={id}
+              onClose={() => setIsBuyModal(false)}
+            />
+          )}
         </>
       )}
     </>

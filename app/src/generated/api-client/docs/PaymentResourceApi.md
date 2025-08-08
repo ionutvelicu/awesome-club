@@ -1,38 +1,45 @@
-# AuthResourceApi
+# PaymentResourceApi
 
 All URIs are relative to *http://localhost:8080/api*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
-|[**getStatus**](#getstatus) | **GET** /public/auth/status | |
-|[**login**](#login) | **POST** /public/auth/login | |
-|[**register**](#register) | **POST** /public/auth/register | |
+|[**createCheckoutSession**](#createcheckoutsession) | **POST** /payment/{id}/create-checkout-session | |
+|[**createSetupIntent**](#createsetupintent) | **POST** /payment/{id}/create-setup-intent | |
+|[**getSessionStatus**](#getsessionstatus) | **GET** /payment/session/{id}/status | |
 
-# **getStatus**
-> AuthStatus getStatus()
+# **createCheckoutSession**
+> { [key: string]: string; } createCheckoutSession()
 
 
 ### Example
 
 ```typescript
 import {
-    AuthResourceApi,
+    PaymentResourceApi,
     Configuration
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new AuthResourceApi(configuration);
+const apiInstance = new PaymentResourceApi(configuration);
 
-const { status, data } = await apiInstance.getStatus();
+let id: string; // (default to undefined)
+
+const { status, data } = await apiInstance.createCheckoutSession(
+    id
+);
 ```
 
 ### Parameters
-This endpoint does not have any parameters.
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **id** | [**string**] |  | defaults to undefined|
 
 
 ### Return type
 
-**AuthStatus**
+**{ [key: string]: string; }**
 
 ### Authorization
 
@@ -53,26 +60,25 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **login**
-> AuthResponse login(authRequest)
+# **createSetupIntent**
+> { [key: string]: string; } createSetupIntent()
 
 
 ### Example
 
 ```typescript
 import {
-    AuthResourceApi,
-    Configuration,
-    AuthRequest
+    PaymentResourceApi,
+    Configuration
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new AuthResourceApi(configuration);
+const apiInstance = new PaymentResourceApi(configuration);
 
-let authRequest: AuthRequest; //
+let id: string; // (default to undefined)
 
-const { status, data } = await apiInstance.login(
-    authRequest
+const { status, data } = await apiInstance.createSetupIntent(
+    id
 );
 ```
 
@@ -80,12 +86,12 @@ const { status, data } = await apiInstance.login(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **authRequest** | **AuthRequest**|  | |
+| **id** | [**string**] |  | defaults to undefined|
 
 
 ### Return type
 
-**AuthResponse**
+**{ [key: string]: string; }**
 
 ### Authorization
 
@@ -93,7 +99,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: */*
 
 
@@ -106,26 +112,25 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **register**
-> AuthResponse register(authRequest)
+# **getSessionStatus**
+> { [key: string]: string; } getSessionStatus()
 
 
 ### Example
 
 ```typescript
 import {
-    AuthResourceApi,
-    Configuration,
-    AuthRequest
+    PaymentResourceApi,
+    Configuration
 } from './api';
 
 const configuration = new Configuration();
-const apiInstance = new AuthResourceApi(configuration);
+const apiInstance = new PaymentResourceApi(configuration);
 
-let authRequest: AuthRequest; //
+let id: string; // (default to undefined)
 
-const { status, data } = await apiInstance.register(
-    authRequest
+const { status, data } = await apiInstance.getSessionStatus(
+    id
 );
 ```
 
@@ -133,12 +138,12 @@ const { status, data } = await apiInstance.register(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **authRequest** | **AuthRequest**|  | |
+| **id** | [**string**] |  | defaults to undefined|
 
 
 ### Return type
 
-**AuthResponse**
+**{ [key: string]: string; }**
 
 ### Authorization
 
@@ -146,7 +151,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: */*
 
 
