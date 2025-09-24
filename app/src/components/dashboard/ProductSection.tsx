@@ -1,8 +1,9 @@
-import { Button, Input, Popconfirm, Upload } from "antd";
+import { Button, Input, message, Popconfirm, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import Storage from "../../util/storage";
 import { env } from "../../env/env";
 import type { ProductSectionDto } from "../../domain/ProductSectionDto";
+import type { ProductAssetTransporter } from "../../domain/ProductAssetTransporter.ts";
 
 const { TextArea } = Input;
 
@@ -19,6 +20,24 @@ export default function ProductSection({
   updateSection,
   removeSection,
 }: ProductSectionProps) {
+  const handleUploadAsset = ({ file }) => {
+    const duration = 3;
+    if (file.status === "error") {
+      const sectionAssets = [...(JSON.parse(section.content) as ProductAssetTransporter[] || [])];
+      sectionAssets.push({
+        id: file.uid,
+        filename: file.name,
+        contentType: file.type,
+        size: file.size,
+        uploadedAt: new Date().toISOString(),
+      } as ProductAssetTransporter);
+      updateSection({ ...section, content: JSON.stringify(sectionAssets) });
+      message.success({content: `${file.name} file uploaded successfully`, duration});
+    }
+    if (file.status === "error") {
+      message.error({content: `${file.name} file upload failed.`, duration});
+    }
+  };
   return (
     <li>
       <Input
@@ -41,6 +60,7 @@ export default function ProductSection({
         headers={{
           Authorization: `Bearer ${Storage.getToken()}`,
         }}
+        onChange={handleUploadAsset}
       >
         <Button icon={<UploadOutlined />}>Upload Content</Button>
       </Upload>

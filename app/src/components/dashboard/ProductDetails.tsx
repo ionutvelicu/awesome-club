@@ -133,6 +133,7 @@ export default function ProductDetails() {
             size="large"
             type="num"
             placeholder="Price"
+            min={0}
             value={price}
             onChange={(val) => setPrice(val ?? 0)}
           />
