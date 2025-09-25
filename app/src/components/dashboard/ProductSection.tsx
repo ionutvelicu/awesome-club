@@ -22,7 +22,7 @@ export default function ProductSection({
 }: ProductSectionProps) {
   const handleUploadAsset = ({ file }) => {
     const duration = 3;
-    if (file.status === "error") {
+    if (file.status === "done") {
       const sectionAssets = [...(JSON.parse(section.content) as ProductAssetTransporter[] || [])];
       sectionAssets.push({
         id: file.uid,
