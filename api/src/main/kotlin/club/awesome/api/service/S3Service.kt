@@ -35,4 +35,24 @@ class S3Service(
 
         s3.putObject(request, path)
     }
+
+    fun uploadMultipart(file: MultipartFile, key: String, contentType: String? = null) {
+        val request = PutObjectRequest.builder()
+            .bucket(bucketName)
+            .key(key)
+            .contentType(contentType)
+            .build()
+
+        s3.putObject(request, RequestBody.fromInputStream(file.inputStream, file.size))
+    }
+
+    fun uploadStream(stream: InputStream, key: String, size: Long, contentType: String? = null) {
+        val request = PutObjectRequest.builder()
+            .bucket(bucketName)
+            .key(key)
+            .contentType(contentType)
+            .build()
+
+        s3.putObject(request, RequestBody.fromInputStream(stream, size))
+    }
 }
