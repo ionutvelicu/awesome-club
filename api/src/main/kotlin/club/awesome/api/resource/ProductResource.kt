@@ -112,4 +112,14 @@ class ProductResource (
         val asset = assetService.uploadAsset(productId, sectionId, file)
         return ResponseEntity.ok(asset.toDto())
     }
+
+    @DeleteMapping("/products/{productId}/section/{sectionId}/content/{assetId}")
+    fun deleteAsset(
+        @PathVariable productId: String,
+        @PathVariable sectionId: String,
+        @PathVariable assetId: Long
+    ): ResponseEntity<Void> {
+        assetService.deleteAsset(productId, sectionId, assetId);
+        return ResponseEntity.noContent().build()
+    }
 }

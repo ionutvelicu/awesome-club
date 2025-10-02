@@ -7,6 +7,7 @@ All URIs are relative to *http://localhost:8080/api*
 |[**buyProduct**](#buyproduct) | **POST** /products/{id}/buy | |
 |[**checkProductStatus**](#checkproductstatus) | **GET** /products/{id}/status | |
 |[**createProduct**](#createproduct) | **POST** /products | |
+|[**deleteAsset**](#deleteasset) | **DELETE** /products/{productId}/section/{sectionId}/content/{assetId} | |
 |[**deleteProduct**](#deleteproduct) | **DELETE** /products/{id} | |
 |[**getProduct**](#getproduct) | **GET** /products/{id} | |
 |[**getProductsForAuthor**](#getproductsforauthor) | **GET** /products | |
@@ -144,6 +145,64 @@ This endpoint does not have any parameters.
 ### Return type
 
 **ProductDto**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+|**200** | OK |  -  |
+|**400** | Bad Request |  -  |
+|**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **deleteAsset**
+> deleteAsset()
+
+
+### Example
+
+```typescript
+import {
+    ProductResourceApi,
+    Configuration
+} from './api';
+
+const configuration = new Configuration();
+const apiInstance = new ProductResourceApi(configuration);
+
+let productId: string; // (default to undefined)
+let sectionId: string; // (default to undefined)
+let assetId: number; // (default to undefined)
+
+const { status, data } = await apiInstance.deleteAsset(
+    productId,
+    sectionId,
+    assetId
+);
+```
+
+### Parameters
+
+|Name | Type | Description  | Notes|
+|------------- | ------------- | ------------- | -------------|
+| **productId** | [**string**] |  | defaults to undefined|
+| **sectionId** | [**string**] |  | defaults to undefined|
+| **assetId** | [**number**] |  | defaults to undefined|
+
+
+### Return type
+
+void (empty response body)
 
 ### Authorization
 
@@ -467,7 +526,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **uploadProductSectionContent**
-> string uploadProductSectionContent()
+> object uploadProductSectionContent()
 
 
 ### Example
@@ -483,10 +542,12 @@ const apiInstance = new ProductResourceApi(configuration);
 
 let productId: string; // (default to undefined)
 let sectionId: string; // (default to undefined)
+let content: File; // (default to undefined)
 
 const { status, data } = await apiInstance.uploadProductSectionContent(
     productId,
-    sectionId
+    sectionId,
+    content
 );
 ```
 
@@ -496,11 +557,12 @@ const { status, data } = await apiInstance.uploadProductSectionContent(
 |------------- | ------------- | ------------- | -------------|
 | **productId** | [**string**] |  | defaults to undefined|
 | **sectionId** | [**string**] |  | defaults to undefined|
+| **content** | [**File**] |  | defaults to undefined|
 
 
 ### Return type
 
-**string**
+**object**
 
 ### Authorization
 
@@ -508,7 +570,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: multipart/form-data
  - **Accept**: */*
 
 

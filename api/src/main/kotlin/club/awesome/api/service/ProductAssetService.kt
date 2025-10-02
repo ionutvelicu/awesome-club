@@ -41,6 +41,19 @@ class ProductAssetService(
         return asset
     }
 
+    fun deleteAsset(productId: String, sectionId: String, assetId: Long) {
+        val asset = assetRepo.findById(assetId).orElseThrow{IllegalArgumentException("Asset with id $assetId not found")}
+        if (asset.productId != productId) {
+            throw IllegalArgumentException("Asset with id $assetId does not belong to this product")
+        }
+        if (asset.section != sectionId) {
+            throw IllegalArgumentException("Asset with id $assetId does not belong to this section")
+        }
+        asset.originalKey?.let { s3Service.deleteAsset(it) }
+        asset.hlsKey?.let { s3Service.deleteAsset(it) }
+        assetRepo.delete(asset)
+    }
+
     @Async
     fun transcodeToHLSAsync(inputFile: Path, hlsKey: String, asset: ProductAsset) {
         try {

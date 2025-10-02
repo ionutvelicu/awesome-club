@@ -919,6 +919,47 @@ export const ProductResourceApiAxiosParamCreator = function (configuration?: Con
         },
         /**
          * 
+         * @param {string} productId 
+         * @param {string} sectionId 
+         * @param {number} assetId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAsset: async (productId: string, sectionId: string, assetId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'productId' is not null or undefined
+            assertParamExists('deleteAsset', 'productId', productId)
+            // verify required parameter 'sectionId' is not null or undefined
+            assertParamExists('deleteAsset', 'sectionId', sectionId)
+            // verify required parameter 'assetId' is not null or undefined
+            assertParamExists('deleteAsset', 'assetId', assetId)
+            const localVarPath = `/products/{productId}/section/{sectionId}/content/{assetId}`
+                .replace(`{${"productId"}}`, encodeURIComponent(String(productId)))
+                .replace(`{${"sectionId"}}`, encodeURIComponent(String(sectionId)))
+                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1117,14 +1158,17 @@ export const ProductResourceApiAxiosParamCreator = function (configuration?: Con
          * 
          * @param {string} productId 
          * @param {string} sectionId 
+         * @param {File} content 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        uploadProductSectionContent: async (productId: string, sectionId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        uploadProductSectionContent: async (productId: string, sectionId: string, content: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'productId' is not null or undefined
             assertParamExists('uploadProductSectionContent', 'productId', productId)
             // verify required parameter 'sectionId' is not null or undefined
             assertParamExists('uploadProductSectionContent', 'sectionId', sectionId)
+            // verify required parameter 'content' is not null or undefined
+            assertParamExists('uploadProductSectionContent', 'content', content)
             const localVarPath = `/products/{productId}/section/{sectionId}/content`
                 .replace(`{${"productId"}}`, encodeURIComponent(String(productId)))
                 .replace(`{${"sectionId"}}`, encodeURIComponent(String(sectionId)));
@@ -1138,12 +1182,20 @@ export const ProductResourceApiAxiosParamCreator = function (configuration?: Con
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
 
 
+            if (content !== undefined) { 
+                localVarFormParams.append('content', content as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1193,6 +1245,20 @@ export const ProductResourceApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createProduct(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ProductResourceApi.createProduct']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} productId 
+         * @param {string} sectionId 
+         * @param {number} assetId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteAsset(productId: string, sectionId: string, assetId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAsset(productId, sectionId, assetId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ProductResourceApi.deleteAsset']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -1270,11 +1336,12 @@ export const ProductResourceApiFp = function(configuration?: Configuration) {
          * 
          * @param {string} productId 
          * @param {string} sectionId 
+         * @param {File} content 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async uploadProductSectionContent(productId: string, sectionId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadProductSectionContent(productId, sectionId, options);
+        async uploadProductSectionContent(productId: string, sectionId: string, content: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadProductSectionContent(productId, sectionId, content, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ProductResourceApi.uploadProductSectionContent']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -1314,6 +1381,17 @@ export const ProductResourceApiFactory = function (configuration?: Configuration
          */
         createProduct(options?: RawAxiosRequestConfig): AxiosPromise<ProductDto> {
             return localVarFp.createProduct(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} productId 
+         * @param {string} sectionId 
+         * @param {number} assetId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAsset(productId: string, sectionId: string, assetId: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deleteAsset(productId, sectionId, assetId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1372,11 +1450,12 @@ export const ProductResourceApiFactory = function (configuration?: Configuration
          * 
          * @param {string} productId 
          * @param {string} sectionId 
+         * @param {File} content 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        uploadProductSectionContent(productId: string, sectionId: string, options?: RawAxiosRequestConfig): AxiosPromise<string> {
-            return localVarFp.uploadProductSectionContent(productId, sectionId, options).then((request) => request(axios, basePath));
+        uploadProductSectionContent(productId: string, sectionId: string, content: File, options?: RawAxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.uploadProductSectionContent(productId, sectionId, content, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1418,6 +1497,19 @@ export class ProductResourceApi extends BaseAPI {
      */
     public createProduct(options?: RawAxiosRequestConfig) {
         return ProductResourceApiFp(this.configuration).createProduct(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} productId 
+     * @param {string} sectionId 
+     * @param {number} assetId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProductResourceApi
+     */
+    public deleteAsset(productId: string, sectionId: string, assetId: number, options?: RawAxiosRequestConfig) {
+        return ProductResourceApiFp(this.configuration).deleteAsset(productId, sectionId, assetId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1489,12 +1581,13 @@ export class ProductResourceApi extends BaseAPI {
      * 
      * @param {string} productId 
      * @param {string} sectionId 
+     * @param {File} content 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ProductResourceApi
      */
-    public uploadProductSectionContent(productId: string, sectionId: string, options?: RawAxiosRequestConfig) {
-        return ProductResourceApiFp(this.configuration).uploadProductSectionContent(productId, sectionId, options).then((request) => request(this.axios, this.basePath));
+    public uploadProductSectionContent(productId: string, sectionId: string, content: File, options?: RawAxiosRequestConfig) {
+        return ProductResourceApiFp(this.configuration).uploadProductSectionContent(productId, sectionId, content, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
