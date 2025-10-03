@@ -47,6 +47,10 @@ const ProductApi = {
   getPurchasedProductDetails(id: string): AxiosPromise<MemberProductDto> {
     return api.getPurchasedProductDetails(id, ops());
   },
+
+  deleteAssetFromSection(productId: string, sectionId: string, assetId: number): AxiosPromise<void> {
+    return api.deleteAsset(productId, sectionId, assetId);
+  }
 };
 
 export default ProductApi;

@@ -31,6 +31,12 @@ dependencies {
 	implementation("commons-validator:commons-validator:1.9.0")
 	implementation("com.stripe:stripe-java:29.2.0")
 
+	//S3
+	implementation(platform("software.amazon.awssdk:bom:2.22.10"))
+	implementation("software.amazon.awssdk:s3")
+	implementation("software.amazon.awssdk:auth")
+	implementation("software.amazon.awssdk:regions")
+
 	implementation("io.jsonwebtoken:jjwt-api:0.12.3")
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.3")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.3")
