@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import java.nio.file.Files
 import java.nio.file.Path
+import java.util.Date
 
 @Service
 class ProductAssetService(
@@ -51,7 +52,9 @@ class ProductAssetService(
         }
         asset.originalKey?.let { s3Service.deleteAsset(it) }
         asset.hlsKey?.let { s3Service.deleteAsset(it) }
-        assetRepo.delete(asset)
+        asset.removed = true
+        asset.removedDate = Date()
+        assetRepo.save(asset)
     }
 
     @Async

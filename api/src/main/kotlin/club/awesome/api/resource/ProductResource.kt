@@ -56,6 +56,7 @@ class ProductResource (
 
     @GetMapping("/products/{id}")
     fun getProduct(@PathVariable id: String): ProductDto {
+        val loggedId = utils.loggedId() ?: throw NotAllowed("not.allowed")
         val product =  productRepo.findOneById(id) ?: throw NotFoundException("product.not.found")
         return product.toDto()
     }
