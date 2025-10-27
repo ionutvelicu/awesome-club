@@ -90,7 +90,7 @@ class PaymentService(
                     .build()
             )
             .setSetupFutureUsage(PaymentIntentCreateParams.SetupFutureUsage.OFF_SESSION)
-            .setCustomer(customer.id) // ✅ Attach customer to enable Link & saved cards
+            .setCustomer(customer.id)
             .build()
 
         val intent = PaymentIntent.create(params)
