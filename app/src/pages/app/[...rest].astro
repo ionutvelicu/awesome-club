@@ -1,8 +1,20 @@
 ---
 import App from '../../components/dashboard/App';
 import Layout from '../../layouts/Layout.astro';
+import VideoPlayer from '../../components/video/VideoPlayer';
 ---
 
 <Layout title="Courses">
   <App client:only />
+ <!--- <VideoPlayer
+      src="/video/playlist.m3u8"
+      controls
+      client:only="react" 
+      onStop={({ currentTime, duration, reason }) => {
+        // save locally
+        localStorage.setItem(`lastpos:${location.pathname}`, String(currentTime));
+        // POST to server
+        console.log("Stopped:", { currentTime, duration, reason });
+      }}
+  /> --->
 </Layout>
