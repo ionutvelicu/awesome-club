@@ -87,6 +87,12 @@ export interface AuthStatus {
     'label': string;
     /**
      * 
+     * @type {string}
+     * @memberof AuthStatus
+     */
+    'name': string;
+    /**
+     * 
      * @type {boolean}
      * @memberof AuthStatus
      */

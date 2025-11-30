@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import AuthApi from "../api/AuthApi";
 import type { AuthStatus } from "../generated/api-client";
 import { Button, Dropdown, type MenuProps } from "antd";
-import Storage from "../util/storage";
 import { Routes } from "../util/routes";
 import { setAuthStore } from "../store/auth";
+import { logout } from "../services/AuthService.ts";
 
 export default function AuthNav() {
   const [auth, setAuth] = useState<AuthStatus | undefined>();
@@ -15,11 +15,6 @@ export default function AuthNav() {
       setAuthStore(resp.data);
     });
   }, []);
-
-  function logout() {
-    Storage.removeToken();
-    window.location.href = Routes.Root;
-  }
 
   function onDropdownClick(info: { key: string }) {
     switch (info.key) {

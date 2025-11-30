@@ -48,7 +48,7 @@ export default function ProductDetails() {
     } else {
       ProductApi.create().then((resp) => {
         setId(resp.data.id);
-        navigate(`/dashboard/products/${resp.data.id}`, { replace: true });
+        navigate(`/products/${resp.data.id}`, { replace: true });
       });
     }
   }, [productId]);

@@ -1,6 +1,14 @@
+export const AppRoute = "/app";
+
 export const Routes = {
-  Root: "/",
-  Dashboard: "/app/dashboard",
-  Courses: "/app/courses",
-  ProductsNew: "/app/dashboard/products/new",
+  Dashboard: "/",
+  Products: "/products",
+  Payments: "/payments",
+  Statistics: "/statistics",
+  Settings: "/settings",
+  ProductsNew: "/products/new",
 };
+
+export function getRoute(route: string) {
+  return `${AppRoute}${route}`;
+}

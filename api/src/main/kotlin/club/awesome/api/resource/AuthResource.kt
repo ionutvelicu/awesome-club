@@ -1,6 +1,5 @@
 package club.awesome.api.resource
 
-import club.awesome.api.config.auth.JwtAuthorizationFilter
 import club.awesome.api.dto.AuthRequest
 import club.awesome.api.dto.AuthResponse
 import club.awesome.api.dto.AuthStatus
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class AuthResource (
+class AuthResource(
   private val utils: Utils,
   private val memberRepo: MemberRepo,
   private val authService: AuthService,
@@ -27,9 +26,15 @@ class AuthResource (
 
   @GetMapping("/public/auth/status")
   fun getStatus(): AuthStatus {
-    val id = utils.loggedId() ?: return AuthStatus(false, "")
+    val id = utils.loggedId() ?: return AuthStatus(loggedIn = false)
+
     val member = memberRepo.findOneById(id) ?: throw NotFoundException("member.not.found")
-    return AuthStatus(true, utils.getAuthLabel(member), member.isAuthor)
+    return AuthStatus(
+      loggedIn = true,
+      label = utils.getAuthLabel(member),
+      name = member.name,
+      isAuthor = member.isAuthor
+    )
   }
 
   @PostMapping("/public/auth/login")

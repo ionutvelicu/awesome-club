@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **loggedIn** | **boolean** |  | [default to undefined]
 **label** | **string** |  | [default to undefined]
+**name** | **string** |  | [default to undefined]
 **isAuthor** | **boolean** |  | [default to undefined]
 
 ## Example
@@ -17,6 +18,7 @@ import { AuthStatus } from './api';
 const instance: AuthStatus = {
     loggedIn,
     label,
+    name,
     isAuthor,
 };
 ```

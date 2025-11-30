@@ -1,14 +1,22 @@
+@use "vars" as *;
+
 .hero {
-  height: calc(100vh - 80px);
+  height: calc(100vh - #{$main-header-height});
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  max-width: $wrap-width;
+  margin: 0 auto;
+  padding: 0 $padding;
+  gap: $padding-lg;
 
   img {
     width: 100%;
     max-width: 450px;
-    margin: 0 auto 30px;
+  }
+
+  .cta {
+    flex: 1;
   }
 
   .wrap {
@@ -16,20 +24,24 @@
     flex-direction: column;
   }
 
-  h1 {
-    font-size: 2.75rem;
+  h1, h2 {
+    font-size: 3.5rem;
     margin: 0;
-    font-weight: 700;
-    text-align: center;
+    font-weight: 900;
+  }
+
+  h2 {
+    font-size: 2.5rem;
   }
 
   p {
-    text-align: center;
     font-size: 22px;
     line-height: 1.6em;
   }
 
   .ant-btn {
+    display: inline-block;
     margin: 0 auto;
+    height: 72px;
   }
 }

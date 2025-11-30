@@ -1,5 +1,4 @@
 ---
-import '../styles/index.scss';
 import BaseLayout from './BaseLayout.astro';
 import Header from './Header.astro';
 
@@ -8,5 +7,7 @@ const { title } = Astro.props;
 
 <BaseLayout title={title}>
   <Header />
-  <slot />
+  <main>
+    <slot />
+  </main>
 </BaseLayout>

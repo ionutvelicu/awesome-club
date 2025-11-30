@@ -22,11 +22,11 @@ export default function Products() {
   }, []);
 
   function addNew() {
-    navigate("/dashboard/products/new");
+    navigate("/products/new");
   }
 
   function edit(product: ProductDto) {
-    navigate(`/dashboard/products/${product.id}`);
+    navigate(`/products/${product.id}`);
   }
 
   function removeProduct(product: ProductDto) {

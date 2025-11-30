@@ -1,16 +1,26 @@
+@use 'vars' as *;
+
 header.main {
   width: 100vw;
-  margin: 0 auto;
-  max-width: 1080px;
-  padding: 0 30px;
-  display: flex;
-  align-items: center;
-  height: 80px;
+  background: #fff;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+
+  & > div {
+    margin: 0 auto;
+    max-width: $wrap-width;
+    padding: 0 $padding;
+    display: flex;
+    align-items: center;
+    height: $main-header-height;
+  }
 
   a.logo {
     text-decoration: none;
     display: flex;
-    height: 60px;
+    height: 50px;
 
     img {
       height: 100%;
@@ -21,26 +31,5 @@ header.main {
 
   nav {
     margin-left: auto;
-  }
-
-  .avatar {
-    height: 50px;
-    width: 50px;
-    background: #7df4c6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    color: #080f24;
-    font-weight: 900;
-    font-size: 22px;
-    letter-spacing: 1px;
-    user-select: none;
-    cursor: pointer;
-    opacity: 0.8;
-
-    &:hover {
-      opacity: 1;
-    }
   }
 }

@@ -4,9 +4,10 @@ import AuthNav from "../components/AuthNav";
 ---
 
 <header class="main">
-  <a class="logo" href="/">
-    <img src={logo.src} alt="logo" />
-  </a>
-  
-  <AuthNav client:load />
+  <div class="content">
+    <a class="logo" href="/">
+      <img src={logo.src} alt="logo" />
+    </a>
+    <AuthNav client:load />
+  </div>
 </header>

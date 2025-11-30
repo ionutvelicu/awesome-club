@@ -10,7 +10,7 @@ export default function StartCtaBtn() {
       type="primary"
       className="cta"
       href={
-        $authStore.loggedIn ? `/app${Routes.ProductsNew}` : "/start?author=y"
+        $authStore.loggedIn ? `${Routes.ProductsNew}` : "/start?author=y"
       }
     >
       Start Selling
