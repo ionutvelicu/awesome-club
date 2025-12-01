@@ -1,0 +1,63 @@
+@use "../vars" as *;
+
+.products {
+  max-width: $app-content-max-width;
+}
+
+.product-details {
+  max-width: $app-content-max-width;
+
+  .block {
+    background: #fff;
+    padding: $padding;
+    box-shadow: $box-shadow;
+
+    .split {
+      display: flex;
+      gap: $padding;
+
+      .one {
+        flex: 1;
+      }
+
+      .one-half {
+        flex: 1.5;
+      }
+
+      .two {
+        flex: 2;
+      }
+    }
+  }
+
+  .sections {
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+
+    .section {
+      margin-top: $padding;
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        h6 {
+          margin: 0;
+          white-space: nowrap;
+        }
+
+        nav {
+          margin-left: auto;
+
+          svg {
+            width: 22px;
+            height: 22px;
+          }
+        }
+      }
+    }
+  }
+}

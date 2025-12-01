@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { AuthStatus } from "../../generated/api-client";
 import { Dropdown, type MenuProps } from "antd";
 import { logout } from "../../services/AuthService.ts";
@@ -15,11 +15,21 @@ interface AppAsideProps {
 }
 
 export default function AppAside({ auth }: AppAsideProps) {
+  const navigate = useNavigate();
+
   function onDropdownClick(info: { key: string }) {
     switch (info.key) {
       case "logout":
         logout();
         break;
+    }
+  }
+
+  function onLogoClick() {
+    if (auth.loggedIn) {
+      navigate(Routes.Dashboard);
+    } else {
+      window.location.href = "/";
     }
   }
 
@@ -47,7 +57,7 @@ export default function AppAside({ auth }: AppAsideProps) {
   return (
     <aside>
       <header>
-        <a className="logo" href="/">
+        <a className="logo" onClick={onLogoClick}>
           <img src={logo.src} alt="logo" />
         </a>
       </header>

@@ -1,4 +1,6 @@
 ---
+import '../styles/ant-overrides.scss';
+
 import BaseLayout from './BaseLayout.astro';
 import Header from './Header.astro';
 
@@ -7,7 +9,7 @@ const { title } = Astro.props;
 
 <BaseLayout title={title}>
   <Header />
-  <main>
+  <main class="land">
     <slot />
   </main>
 </BaseLayout>

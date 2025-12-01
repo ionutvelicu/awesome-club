@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import AuthApi from "../api/AuthApi";
 import type { AuthStatus } from "../generated/api-client";
-import { Button, Dropdown, type MenuProps } from "antd";
-import { Routes } from "../util/routes";
+import { Button } from "antd";
+import { getRoute, Routes } from "../util/routes";
 import { setAuthStore } from "../store/auth";
 import { logout } from "../services/AuthService.ts";
 
@@ -16,43 +16,23 @@ export default function AuthNav() {
     });
   }, []);
 
-  function onDropdownClick(info: { key: string }) {
-    switch (info.key) {
-      case "logout":
-        logout();
-        break;
-    }
-  }
-
-  const items: MenuProps["items"] = [
-    {
-      label: <a href={Routes.Dashboard}>Dashboard</a>,
-      key: "dashboard",
-    },
-    { label: <a href={Routes.Courses}>My Courses</a>, key: "courses" },
-    { label: <a>Logout</a>, key: "logout" },
-  ];
-
   return (
-    <nav>
+    <nav className="auth-nav">
       {auth && auth.loggedIn && (
         <>
-          <Dropdown
-            className="avatar"
-            menu={{ items, onClick: onDropdownClick }}
-            trigger={["click"]}
-          >
-            <a onClick={(e) => e.preventDefault()}>{auth.label}</a>
-          </Dropdown>
+          <a className={"lk"} href={getRoute(Routes.Dashboard)}>Dashboard</a>
+          <a className={"lk"} onClick={logout}>Logout</a>
         </>
       )}
 
       {auth && !auth.loggedIn && (
         <>
-          <Button type="link" href="/start">
+          <Button size={"large"} type="link" href="/start">
             Register
           </Button>
-          <Button href="/login">Log In</Button>
+          <Button size={"large"} href="/login">
+            Log In
+          </Button>
         </>
       )}
     </nav>

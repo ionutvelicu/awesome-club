@@ -1,4 +1,5 @@
 @use "vars" as *;
+@use "app/products" as *;
 
 .app-loading {
   display: flex;
@@ -17,10 +18,13 @@
   }
 }
 
-
 .app {
-  background: #f5f5f5;
-  height: 100vh;
+  background: #f5f6f8;
+  min-height: 100vh;
+
+  a {
+    border: 0;
+  }
 
   & > aside {
     position: fixed;
@@ -29,11 +33,14 @@
     bottom: 0;
     width: $app-aside-width;
     background: #fff;
+    box-shadow: $box-shadow;
 
     header {
       padding: $padding-sm $padding 0;
+
       .logo {
         display: flex;
+
         img {
           width: 125px;
         }
@@ -45,7 +52,7 @@
 
       h5 {
         margin: 0 0 10px;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 400;
         color: #999;
         text-transform: uppercase;
@@ -61,8 +68,8 @@
       margin: 0 -10px;
 
       a {
-        padding: 7px 10px;
-        font-size: 16px;
+        padding: 8px 10px;
+        font-size: 17px;
         display: flex;
         align-items: center;
         user-select: none;
@@ -70,8 +77,8 @@
         border-radius: $border-radius;
 
         svg {
-          width: 20px;
-          height: 20px;
+          width: 22px;
+          height: 22px;
           margin-right: 5px;
         }
 
@@ -115,5 +122,61 @@
     }
   }
 
+  header.dash {
+    padding: $padding $padding-lg;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #DDD;
 
+    h1 {
+      margin: 0 $padding 0 0;
+      font-size: 1.2rem;
+      white-space: nowrap;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    & > nav {
+      margin-left: auto;
+      display: flex;
+      gap: $padding-sm;
+      align-items: center;
+      justify-content: center;
+    }
+
+    & + .content {
+      padding: $padding $padding-lg;
+    }
+  }
+
+  .fm-item {
+    & + .fm-item {
+      margin-top: $padding-sm;
+    }
+
+    .ant-space-compact {
+      width: 100%;
+    }
+
+    .ant-space-addon {
+      border-radius: 0;
+    }
+
+    .ant-input-number {
+      border-radius: $border-radius;
+      width: 100%;
+    }
+
+    label {
+      display: flex;
+      font-size: 13px;
+      font-weight: 600;
+      margin: 0 0 6px 0;
+    }
+  }
+}
+
+.app-sec-load {
+  padding: $padding;
 }

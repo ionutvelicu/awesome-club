@@ -3,7 +3,7 @@ import { useState } from "react";
 import AuthApi from "../../api/AuthApi";
 import Storage from "../../util/storage";
 import { handleAxiosError } from "../../services/ErrorService";
-import { Routes } from "../../util/routes";
+import { getRoute, Routes } from "../../util/routes";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -11,11 +11,13 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
 
   async function login() {
+    if (!email || !password) return;
+
     setLoading(true);
     AuthApi.login(email, password)
       .then((resp) => {
         Storage.setToken(resp.data.token);
-        window.location.href = Routes.Dashboard;
+        window.location.href = getRoute(Routes.Dashboard);
       })
       .catch((err) => {
         handleAxiosError(err);
@@ -24,7 +26,7 @@ export default function LoginForm() {
   }
 
   return (
-    <>
+    <div className="auth-form">
       <Input
         name="email"
         type="email"
@@ -39,9 +41,14 @@ export default function LoginForm() {
         value={password}
         onChange={(ev) => setPassword(ev.target.value)}
       />
-      <Button disabled={!email || !password} loading={loading} onClick={login}>
+      <Button
+        size="large"
+        block
+        loading={loading}
+        onClick={login}
+      >
         Login
       </Button>
-    </>
+    </div>
   );
 }

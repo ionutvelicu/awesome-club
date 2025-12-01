@@ -1,6 +1,7 @@
 export const AppRoute = "/app";
 
 export const Routes = {
+  Root: "/",
   Dashboard: "/",
   Products: "/products",
   Payments: "/payments",

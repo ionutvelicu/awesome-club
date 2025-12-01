@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ProductApi from "../../api/ProductApi";
 import type { ProductDto } from "../../generated/api-client";
 import { handleAxiosError } from "../../services/ErrorService";
-import { Button, Popconfirm, Skeleton } from "antd";
+import { Button, Empty, Popconfirm, Skeleton } from "antd";
 import { useNavigate } from "react-router-dom";
 
 export default function Products() {
@@ -40,43 +40,47 @@ export default function Products() {
   }
 
   return (
-    <div className="content-list">
-      <h1>Your Products</h1>
-
-      {loading && <Skeleton active />}
-
-      {!loading && products.length > 0 && (
-        <>
-          <Button type="primary" onClick={addNew}>
-            Add New
+    <div className="products">
+      <header className={"dash"}>
+        <h1>Your Products</h1>
+        <nav>
+          <Button type={"primary"} size={"large"} onClick={addNew}>
+            + New Product
           </Button>
-          <ul>
-            {products.map((product) => (
-              <li key={product.id}>
-                <h3 onClick={() => edit(product)}>
-                  {product.name || "Unnamed Product"}
-                </h3>
-                <Popconfirm
-                  placement="bottom"
-                  title={"Confirm?"}
-                  onConfirm={() => removeProduct(product)}
-                >
-                  <button>x</button>
-                </Popconfirm>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
+        </nav>
+      </header>
 
-      {!loading && products.length === 0 && (
-        <>
-          <p>You don't have any published digital products yet.</p>
-          <Button type="primary" onClick={addNew}>
-            Add New
-          </Button>
-        </>
-      )}
+      <div className="content">
+        {loading && <Skeleton loading active />}
+
+        {!loading && products.length > 0 && (
+          <>
+            <ul>
+              {products.map((product) => (
+                <li key={product.id}>
+                  <h3 onClick={() => edit(product)}>
+                    {product.name || "Unnamed Product"}
+                  </h3>
+                  <Popconfirm
+                    placement="bottom"
+                    title={"Confirm?"}
+                    onConfirm={() => removeProduct(product)}
+                  >
+                    <button>x</button>
+                  </Popconfirm>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        {!loading && products.length === 0 && (
+          <div className="empty">
+            <Empty description={null} />
+            <p>You don't have any published digital products yet.</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

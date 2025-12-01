@@ -27,16 +27,19 @@
   h1, h2 {
     font-size: 3.5rem;
     margin: 0;
+    font-family: $font-family-serif;
     font-weight: 900;
   }
 
   h2 {
     font-size: 2.5rem;
+    font-weight: 400;
   }
 
   p {
     font-size: 22px;
     line-height: 1.6em;
+    font-weight: 300;
   }
 
   .ant-btn {

@@ -21,6 +21,7 @@ header.main {
     text-decoration: none;
     display: flex;
     height: 50px;
+    border: 0;
 
     img {
       height: 100%;
@@ -29,7 +30,23 @@ header.main {
     }
   }
 
-  nav {
+  .auth-nav {
     margin-left: auto;
+    display: flex;
+
+    a.lk {
+      font-size: 15px;
+      border-bottom: 1px solid #FFF;
+      display: flex;
+      padding: $padding-xs;
+
+      color: $text-color;
+      transition: all .2s;
+
+      &:hover {
+        color: #222;
+        border-bottom-color: $text-color;
+      }
+    }
   }
 }

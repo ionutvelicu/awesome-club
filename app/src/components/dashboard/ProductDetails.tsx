@@ -1,4 +1,4 @@
-import { Button, Input, InputNumber, message, Skeleton } from "antd";
+import { Button, Input, InputNumber, message, Skeleton, Space } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -8,8 +8,9 @@ import {
 import ProductApi from "../../api/ProductApi";
 import { handleAxiosError } from "../../services/ErrorService";
 import ProductSection from "./ProductSection";
-
-const { TextArea } = Input;
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { QUILL_FORMATS, QUILL_MODULES } from "../../services/QuillService.ts";
 
 export default function ProductDetails() {
   const [id, setId] = useState("");
@@ -96,11 +97,16 @@ export default function ProductDetails() {
   }
 
   return (
-    <>
-      {loading && <Skeleton active />}
+    <div className="product-details">
+      {loading && (
+        <div className={"app-sec-load"}>
+          <Skeleton loading active />
+        </div>
+      )}
       {!loading && (
         <div>
-          <header>
+          <header className={"dash"}>
+            <h1>{name || "New product"}</h1>
             <nav>
               <Button loading={saving} onClick={() => preview()}>
                 Preview
@@ -110,58 +116,93 @@ export default function ProductDetails() {
                 Save
               </Button>
 
-              <Button loading={saving} onClick={() => publish()}>
+              <Button
+                size="large"
+                type={"primary"}
+                loading={saving}
+                onClick={() => publish()}
+              >
                 Publish
               </Button>
             </nav>
           </header>
-          <Input
-            size="large"
-            placeholder="Product Name"
-            value={name}
-            onChange={(ev) => setName(ev.target.value)}
-          />
 
-          <Input
-            size="large"
-            placeholder="Public Url"
-            value={url}
-            onChange={(ev) => setUrl(ev.target.value)}
-          />
+          <div className="content">
+            <div className="block">
+              <div className="split">
+                <div className={"one"}>
+                  <div className={"fm-item"}>
+                    <label>Name</label>
+                    <Input
+                      size="large"
+                      placeholder="Product Name"
+                      value={name}
+                      onChange={(ev) => setName(ev.target.value)}
+                    />
+                  </div>
 
-          <InputNumber
-            size="large"
-            type="num"
-            placeholder="Price"
-            min={0}
-            value={price}
-            onChange={(val) => setPrice(val ?? 0)}
-          />
+                  <div className={"fm-item"}>
+                    <label>Public URL</label>
+                    <Space.Compact>
+                      <Space.Addon>awesome.club/p/</Space.Addon>
+                      <Input
+                        size="large"
+                        placeholder="Public Url"
+                        value={url}
+                        onChange={(ev) => setUrl(ev.target.value)}
+                      />
+                    </Space.Compact>
+                  </div>
 
-          <TextArea
-            size="large"
-            placeholder="Product Description"
-            value={description}
-            onChange={(ev) => setDescription(ev.target.value)}
-          />
+                  <div className={"fm-item"}>
+                    <label>Price</label>
+                    <Space.Compact>
+                      <Space.Addon>$</Space.Addon>
+                      <InputNumber
+                        size="large"
+                        type="num"
+                        placeholder="Price"
+                        min={0}
+                        value={price}
+                        onChange={(val) => setPrice(val ?? 0)}
+                      />
+                    </Space.Compact>
+                  </div>
+                </div>
+                <div className={"one-half"}>
+                  <div className={"fm-item"}>
+                    <label>Details</label>
+                    <ReactQuill
+                      theme="snow"
+                      value={description}
+                      onChange={setDescription}
+                      modules={QUILL_MODULES}
+                      formats={QUILL_FORMATS}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
 
-          <div className="sections">
-            <h3>Sections</h3>
-            <ul>
-              {sections.map((section) => (
-                <ProductSection
-                  key={section.id}
-                  productId={id}
-                  section={section}
-                  updateSection={updateSection}
-                  removeSection={removeSection}
-                />
-              ))}
-            </ul>
-            <Button onClick={addSection}>Add Section</Button>
+            <div className="sections">
+              <ul>
+                {sections.map((section, idx) => (
+                  <li key={section.id}>
+                    <ProductSection
+                      index={idx}
+                      productId={id}
+                      section={section}
+                      updateSection={updateSection}
+                      removeSection={removeSection}
+                    />
+                  </li>
+                ))}
+              </ul>
+              <Button className={"mt"} size={"large"} block onClick={addSection}>+ Section</Button>
+            </div>
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
